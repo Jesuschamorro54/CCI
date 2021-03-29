@@ -1,0 +1,102 @@
+#: import C kivy.utils.get_color_from_hex
+#: set color_no_click C("#232323")
+#: set color_click C("#ED0707")
+
+<CustomButton@Button>:
+    font_size: "20sp"
+    color: C("FFFFFF")
+    background_color: 0,0,0,0
+
+    canvas.before:
+        Color:
+            rgba: color_no_click if self.state == "normal" else color_click
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20,]
+
+
+#AMARILLO
+<BoxLabel@Label>:
+    canvas.before:
+        Color:
+            #rgba: C("#FFC300")
+            rgba: C("#000000")
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, 8]
+    size_hint: 1. , 1.
+
+#ROJO
+<LabelText@Label>:
+    canvas.before:
+        Color:
+            #rgba: C("#ED0707")
+            rgba: C("#000000")
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20, 8]
+    size_hint: 1. , 1.
+    bold: True
+
+#MORADO
+<BoxContainer@BoxLayout>:
+    padding: "5sp"
+    spacing: "5sp"
+    canvas:
+        Color:
+            #rgba: C('#900C3F')
+            rgba: C("#000000")
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+    size_hint: 1. , 1.
+    bold: True
+
+#AZUL CLARO
+<BoxContainerSentences@BoxLayout>:
+    padding: "5sp"
+    spacing: "5sp"
+    canvas:
+        Color:
+            #rgba: C('#2E86C1')
+            rgba: C("#000000")
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+    size_hint: 1. , 1.
+    bold: True
+
+<Tittle@Label>:
+    canvas:
+        Color:
+            rgba: 255, 255, 255, .2
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20,]
+    font_size: "20sp"
+    bold: True
+    color: C("#FFFFFF")
+    size_hint_y: 0.5
+
+<TextMessage@Label>:
+    font_size: "18sp"
+    readonly: True
+    background_color: C("000000")
+    color: C("FF0000")
+    size_hint: .3, .6
+    bold: True
+
+<Tex@TextInput>:
+    text: ""
+    font_size: "18sp"
+    multiline: False
+    halign: "center"
+    background_color: C("#181818")
+    foreground_color: C("FFFFFF")
+
+
+# text: size_hint: .3 ,.55

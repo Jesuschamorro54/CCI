@@ -1,0 +1,163 @@
+#: import C kivy.utils.get_color_from_hex
+
+
+<HireEmployee>:
+    FloatLayout:
+
+        # Box containing the complete app
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1.0, 1.0
+            pos_hint: {"x": 0.0, "y": 0.0}
+            padding: "5sp"
+            spacing: "5sp"
+
+            BoxContainer:
+                orientation: "horizontal"
+                size_hint_y: .3
+                BoxLabel:
+                    size_hint_x: .3
+                # LOGIN
+                BoxContainerSentences:
+                    Tittle:
+                        size_hint_y: .8
+                        text: "Contratar Nuevo Empleado"
+                BoxLabel:
+                    size_hint_x: .3
+            # Box containing Name and Telephone
+            BoxContainer:
+                orientation: "horizontal"
+                #------#
+                BoxLabel:
+                    size_hint_x: .1
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    BoxContainer:
+                        LabelText:
+                            font_size: "18sp"
+                            size_hint: .2, .8
+                            text: "Nombres y Apellidos"
+                        Tex:
+                            size_hint: .3, .8
+                            id: name
+
+                    BoxContainer:
+                        LabelText:
+                            font_size: "18sp"
+                            size_hint: .2, .8
+                            text: "Telefono"
+                        Tex:
+                            size_hint: .4, .8
+                            id: cellphone
+                        BoxLabel:
+                            size_hint_x: .27
+
+                    BoxContainer:
+                        LabelText:
+                            font_size: "18sp"
+                            size_hint: .2, .8
+                            text: "CARGO"
+                        Spinner:
+                            id: cargo
+                            font_size: "14sp"
+                            size_hint: .4, .8
+                            background_color: C("#4D4D4D")
+                            foreground_color: C("FFFFFF")
+                            text: "deploy"
+                            on_release: cargo.values = root.return_post()
+                        BoxLabel:
+                            size_hint_x: .27
+                #------#
+                BoxLabel:
+                    size_hint_x: .3
+
+            # Containing Address
+            BoxContainer:
+                size_hint_y: .8
+                BoxLabel:
+                    size_hint_x: .1
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    canvas:
+                        Color:
+                            rgba: C('#34002D')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                    LabelText:
+                        size_hint_y: .7
+                        text: "Dirección"
+                    BoxContainer:
+                        LabelText:
+                            text: "C:"
+                        Tex:
+                            id: av
+                            text: "null"
+                        BoxLabel
+                        LabelText:
+                            text: "Kra:"
+                        Tex:
+                            id: kra
+                            text: "null"
+                        BoxLabel
+                        LabelText:
+                            text: "Dg:"
+                        Tex:
+                            id: dg
+                            text: "null"
+                        BoxLabel
+                        LabelText:
+                            text: "Tr:"
+                        Tex:
+                            id: tr
+                            text: "null"
+                    BoxContainer:
+                        LabelText:
+                            text: "#:"
+                            size_hint_x: .5
+                        Tex:
+                            id: number
+                            text: "null"
+                        BoxLabel
+                        LabelText:
+                            text: "Barrio:"
+                        Tex:
+                            size_hint_x: 2.5
+                            id: district
+                            text: "null"
+
+                BoxLabel:
+                    size_hint_x: .1
+
+            BoxContainer:
+                BoxLabel:
+                    size_hint_x: .4
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    BoxContainer:
+                        LabelText:
+                            text: "Fecha de inicio"
+                        Tex:
+                            text: "YYYY-MM-DD"
+                            id: date_init
+                    BoxContainer:
+                        size_hint_y: .5
+                        TextMessage:
+                            id: text_notice
+                            text: ""
+                    BoxContainer:
+                        spacing: "20sp"
+                        CustomButton:
+                            text: "Cancelar"
+                            on_release: app.go_menu()
+                        CustomButton:
+                            id: add
+                            text: "Añadir"
+                            on_release: root.add_employee(f"({name.text}, {cargo.text}, {cellphone.text}, {date_init.text})", f"({av.text}, {kra.text}, {dg.text}, {tr.text}, {number.text}, {district.text})")
+                    BoxLabel:
+                        id: list
+                BoxLabel:
+                    size_hint_x: .4
+
+
+
