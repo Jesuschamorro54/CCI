@@ -1,6 +1,6 @@
 import pymysql
 from Proyect.database_conect.functions.validate import *
-
+from Proyect.database_conect.functions.insertions import *
 
 class DataBase:
     def __init__(self, name_data_base):
@@ -9,6 +9,7 @@ class DataBase:
         self.cursor = self.connection.cursor()
         self.container = None
         print("Established Connection")
+
 
     # Valid login
     def valid_login(self, ide, post):
@@ -20,3 +21,7 @@ class DataBase:
         self.cursor.execute(sql)
         self.container = self.cursor.fetchall()
         return self.container
+
+    def insert_address(self, address):
+        insert_address_func(self.cursor, address)
+        self.connection.commit()

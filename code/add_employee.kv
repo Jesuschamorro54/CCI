@@ -1,5 +1,5 @@
 #: import C kivy.utils.get_color_from_hex
-
+#: include class_kivy.kv
 
 <HireEmployee>:
     FloatLayout:
@@ -153,7 +153,7 @@
                         CustomButton:
                             id: add
                             text: "Añadir"
-                            on_release: root.add_employee(f"({name.text}, {cargo.text}, {cellphone.text}, {date_init.text})", f"({av.text}, {kra.text}, {dg.text}, {tr.text}, {number.text}, {district.text})")
+                            on_release: root.add_employee(f"({name.text}, {cargo.text}, {cellphone.text}, {date_init.text})", root.insert_address(f"{av.text},{kra.text},{dg.text},{tr.text},{number.text},{district.text}"))
                     BoxLabel:
                         id: list
                 BoxLabel:

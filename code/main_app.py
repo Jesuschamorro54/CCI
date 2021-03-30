@@ -109,7 +109,7 @@ if __name__ == "__main__":
     database = DataBase("cci")
 
     # Instance for interface
-
+    """"
     login_app = Login()
     login_app.run()
 
@@ -121,6 +121,6 @@ if __name__ == "__main__":
         app.run()
     else:
         exit()
-
-    # app = Interface()
-    # app.run()
+    """
+    app = Interface()
+    app.run()
