@@ -25,3 +25,9 @@ class DataBase:
     def insert_address(self, address):
         insert_address_func(self.cursor, address)
         self.connection.commit()
+        self.cursor.execute("SELECT last_insert_id()")
+        id = self.cursor.fetchone()
+        print("imprimir id: ", id)
+        return id[0]
+
+

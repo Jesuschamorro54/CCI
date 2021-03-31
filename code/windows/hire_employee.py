@@ -1,5 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from Proyect.database_conect.connect_database import DataBase
+from Proyect.database_conect.functions.validate import *
 
 
 class HireEmployee(Screen):
@@ -18,32 +19,35 @@ class HireEmployee(Screen):
 
         return job_name_list
 
-    def insert_address(self, address_str):
-        print("\ncomo str: ", address_str)
-        address = address_str.split(',')
-        print("como vector: ", address)
-
-        # check the data that will be sent to the address table
-        for i in range(len(address)):
-            if address[i] == "":
-                address[i] = "null"
-            if address[4] != "null":
-                try:
-                    address[4] = int(address[4])
-                except:
-                    print("El valor no es tipo numerico")
-                    return None
-        address_str = str(address)
-        address_str = address_str.replace("['", "('")
-        address_str = address_str.replace("']", "')")
-        self.database.insert_address(address_str)
+    @staticmethod
+    def insert_address(address):
+        return valid_address(address)
 
     def add_employee(self, users, address):
-        print(users)
-        print("imprimiendo desde add_employee: ", address)
+        print("\nUsuario sin validar: ", users)  # str
+        print("print address validada: ", address)
+        user = users.split(',')
+        print(user[1])
 
+        if address == 1:
+            return "La direción es incorrecta"
+        if address == 2:
+            return "Ingrese al menos un barrio y una calle"
 
+        # Check that there is a jobs
+        for key in self.container:
+            if self.container[key] == user[1]:
+                user[1] = key
+        if user[1] == "deploy":
+            return "Elija un cargo"
 
+        result = valid_insert_user(user, address)
+        if type(result) != list:
+            print("resutado", result)
+            return result
+        else:
+            print("ingresando")
 
-
-
+        # Ingresar direccion despues de haber validado el usuario
+        self.database.insert_address(address)
+        return "OK"
