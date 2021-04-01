@@ -14,6 +14,7 @@ def valid_login_func(cursor, ide, post):
     except:
         pass
 
+
 def valid_address(address):
     address = address.split(',')
 
@@ -56,16 +57,15 @@ def valid_insert_user(user, address_id):
 
     elif user[2] != '' or user[2] != 'null':
         print("cambiando a entero")
-        try:
-            user[2] = int(user[2])
-            print("cambiado: ", user[2])
-        except:
-            print("numero de telefono no valido")
+        print(len(user[2]))
+        if 5 < len(user[2]) < 11:
+            try:
+                user[2] = int(user[2])
+                print("cambiado: ", user[2])
+            except:
+                print("numero de telefono no valido")
+                return "Numero de telefono incorrecto"
+        else:
             return "Numero de telefono incorrecto"
 
-
-    user[3] = address_id
-    print("normal")
     return user
-
-

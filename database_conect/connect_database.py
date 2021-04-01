@@ -2,6 +2,7 @@ import pymysql
 from Proyect.database_conect.functions.validate import *
 from Proyect.database_conect.functions.insertions import *
 
+
 class DataBase:
     def __init__(self, name_data_base):
         self.name = name_data_base
@@ -9,7 +10,6 @@ class DataBase:
         self.cursor = self.connection.cursor()
         self.container = None
         print("Established Connection")
-
 
     # Valid login
     def valid_login(self, ide, post):
@@ -26,8 +26,13 @@ class DataBase:
         insert_address_func(self.cursor, address)
         self.connection.commit()
         self.cursor.execute("SELECT last_insert_id()")
-        id = self.cursor.fetchone()
-        print("imprimir id: ", id)
-        return id[0]
+        ide = self.cursor.fetchone()
+        print("print id: ", ide)
+        return ide[0]
 
-
+    def insert_employee(self, employee):
+        insert_employee_func(self.cursor, employee)
+        self.connection.commit()
+        self.cursor.execute("SELECT last_insert_id()")
+        ide = self.cursor.fetchone()
+        return ide[0]
