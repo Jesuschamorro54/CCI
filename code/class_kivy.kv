@@ -1,6 +1,8 @@
 #: import C kivy.utils.get_color_from_hex
 #: set color_no_click C("#232323")
 #: set color_click C("#ED0707")
+#: set color_no_click2 C("#909090")
+#: set color_click2 C("#2E86C1")
 
 <CustomButton@Button>:
     font_size: "20sp"
@@ -98,5 +100,41 @@
     background_color: C("#181818")
     foreground_color: C("FFFFFF")
 
+<ButtonColum@Button>:
+    background_color: 0,0,0,0
+    bold: True
+    canvas.before:
+        Color:
+            rgba: C("#9A9A9A") if self.state == "normal" else C("5E5E5E")
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    color: C("#010101")
 
-# text: size_hint: .3 ,.55
+<LabelDate@Label>:
+    canvas.before:
+        Color:
+            rgba: C("#939393")
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    padding_x: "5sp"
+    padding_y: "5sp"
+
+<LabelDateLong@LabelDate>:
+    text_size: root.width, None
+    size: self.texture_size
+
+<CustomButton2@Button>:
+    font_size: "20sp"
+    color: C("FFFFFF")
+    background_color: 0,0,0,0
+
+    canvas.before:
+        Color:
+            rgba: color_no_click2 if self.state == "normal" else color_click2
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10,]
+

@@ -32,9 +32,12 @@ class Interface(App):
         self.root.add_widget(self.menu)
         return self.root
 
-    #  Go to hire
+    #  Go to hire employee
     def go_hire(self):
         go_hire_func(self.root, self.transition)
+
+    def go_implement_view(self):
+        go_implement_view_func(self.root, self.transition)
 
     #  Go back to menu
     def go_menu(self):
@@ -92,7 +95,7 @@ class Login(App):
 if __name__ == "__main__":
     # Instance database
     database = DataBase("cci")
-
+    '''
     # Instance for interface
     login_app = Login()
     login_app.run()
@@ -104,6 +107,6 @@ if __name__ == "__main__":
         app.run()
     else:
         exit()
-
-    # app = Interface()
-    # app.run()
+    '''
+    app = Interface()
+    app.run()

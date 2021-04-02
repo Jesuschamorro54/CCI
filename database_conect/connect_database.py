@@ -15,6 +15,38 @@ class DataBase:
     def valid_login(self, ide, post):
         return valid_login_func(self.cursor, ide, post)
 
+    # Returned implement for view
+    def implement(self, seeker, identifier):
+        self.connection.begin()
+        if identifier == 1:
+            sql = "select * from implementos"
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        elif identifier == 2:
+            sql = f"select * from implementos where id = {seeker}"
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        elif identifier == 3:
+            sql = f"select * from implementos where estado = {seeker}"
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        elif identifier == 4:
+            sql = f"select * from implementos where belonging = {seeker}"
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+
+    # Returned areas from company
+    def area(self):
+        self.connection.begin()
+        sql = "select id, nombre from area"
+        self.cursor.execute(sql)
+        self.container = self.cursor.fetchall()
+        return self.container
+
     # Returned jobs for login
     def jobs(self):
         sql = "select id, nombre from cargos"

@@ -1,5 +1,6 @@
 #: import C kivy.utils.get_color_from_hex
 #: include add_employee.kv
+#: include implement.kv
 
 <Menu>:
     center_label: center_label
@@ -38,8 +39,8 @@
                 Widget:
                     size_hint_x: 0.1
                 Button:
-                    text: "ver"
-                    # on_release: root.set_mode(mode_spinner.text)
+                    text: "Implementos"
+                    on_release: app.go_implement_view()
             BoxLayout:
                 orientation: "horizontal"
                 size_hint_y: 0.1
