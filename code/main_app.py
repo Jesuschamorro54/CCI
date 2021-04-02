@@ -1,10 +1,9 @@
-import time
-
 from Proyect.database_conect.connect_database import DataBase
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, SlideTransition
-from Proyect.code.windows.hire_employee import HireEmployee
+# from Proyect.code.windows.hire_employee import HireEmployee
 from Proyect.code.windows.menu import Menu
+from Proyect.code.funtions_main.change_windows import *
 
 
 # from kivy.properties import ObjectProperty
@@ -33,19 +32,12 @@ class Interface(App):
         self.root.add_widget(self.menu)
         return self.root
 
-    #  Go to hire
+    #  Go to hire employee
     def go_hire(self):
-        # If it returns an existing screen it just makes the change
-        if self.root.has_screen(name="hire"):
-            self.transition.direction = 'left'
-            self.root.current = "hire"
-            print("go to hire again")
-        else:
-            hire = HireEmployee(name="hire")
-            print("go to hire")
-            self.root.add_widget(hire)
-            self.transition.direction = 'left'
-            self.root.current = hire.name
+        go_hire_func(self.root, self.transition)
+
+    def go_implement_view(self):
+        go_implement_view_func(self.root, self.transition)
 
     #  Go back to menu
     def go_menu(self):
@@ -53,10 +45,6 @@ class Interface(App):
         self.root.current = 'menu'
         print("go to menu")
 
-    # Go back
-    def back(self):
-        self.signal = 2
-        app.stop()
 
 
 class Login(App):
@@ -107,20 +95,18 @@ class Login(App):
 if __name__ == "__main__":
     # Instance database
     database = DataBase("cci")
-
+    '''
     # Instance for interface
-
     login_app = Login()
     login_app.run()
-
-    print(login_app.signal)
     signal = login_app.signal
-    
+
+    # If "cancel" was pressed in the login window. Finish process
     if signal == 1:
         app = Interface()
         app.run()
     else:
         exit()
-
-    # app = Interface()
-    # app.run()
+    '''
+    app = Interface()
+    app.run()

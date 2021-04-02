@@ -1,5 +1,5 @@
 #: import C kivy.utils.get_color_from_hex
-
+#: include class_kivy.kv
 
 <HireEmployee>:
     FloatLayout:
@@ -22,8 +22,17 @@
                     Tittle:
                         size_hint_y: .8
                         text: "Contratar Nuevo Empleado"
+                BoxContainerSentences:
+                    size_hint_x: .2
+                    size_hint_y: .9
+                    CustomButton:
+                        text: "Reload"
+                        on_release: root.reload()
+                        on_release: text_notice.text = name.text = cellphone.text = ''
+                        on_release: av.text = kra.text = dg.text = tr.text = number.text = district.text = "null"
+                        on_release: cargo.text = "deploy"
                 BoxLabel:
-                    size_hint_x: .3
+                    size_hint_x: .1
             # Box containing Name and Telephone
             BoxContainer:
                 orientation: "horizontal"
@@ -40,6 +49,7 @@
                         Tex:
                             size_hint: .3, .8
                             id: name
+                            on_focus: text_notice.text = ""
 
                     BoxContainer:
                         LabelText:
@@ -49,6 +59,7 @@
                         Tex:
                             size_hint: .4, .8
                             id: cellphone
+                            on_focus: text_notice.text = ""
                         BoxLabel:
                             size_hint_x: .27
 
@@ -65,6 +76,7 @@
                             foreground_color: C("FFFFFF")
                             text: "deploy"
                             on_release: cargo.values = root.return_post()
+                            on_release: text_notice.text = ""
                         BoxLabel:
                             size_hint_x: .27
                 #------#
@@ -93,24 +105,28 @@
                         Tex:
                             id: av
                             text: "null"
+                            on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
                             text: "Kra:"
                         Tex:
                             id: kra
                             text: "null"
+                            on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
                             text: "Dg:"
                         Tex:
                             id: dg
                             text: "null"
+                            on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
                             text: "Tr:"
                         Tex:
                             id: tr
                             text: "null"
+                            on_focus: text_notice.text = ""
                     BoxContainer:
                         LabelText:
                             text: "#:"
@@ -118,6 +134,7 @@
                         Tex:
                             id: number
                             text: "null"
+                            on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
                             text: "Barrio:"
@@ -125,6 +142,7 @@
                             size_hint_x: 2.5
                             id: district
                             text: "null"
+                            on_focus: text_notice.text = ""
 
                 BoxLabel:
                     size_hint_x: .1
@@ -140,6 +158,8 @@
                         Tex:
                             text: "YYYY-MM-DD"
                             id: date_init
+                            markup: True
+                            on_focus: text_notice.text = ""
                     BoxContainer:
                         size_hint_y: .5
                         TextMessage:
@@ -153,7 +173,8 @@
                         CustomButton:
                             id: add
                             text: "Añadir"
-                            on_release: root.add_employee(f"({name.text}, {cargo.text}, {cellphone.text}, {date_init.text})", f"({av.text}, {kra.text}, {dg.text}, {tr.text}, {number.text}, {district.text})")
+                            on_release:
+                                text_notice.text = str(root.add_employee(f"{name.text},{cargo.text},{cellphone.text},null,{date_init.text}", root.insert_address(f"{av.text},{kra.text},{dg.text},{tr.text},{number.text},{district.text}")))
                     BoxLabel:
                         id: list
                 BoxLabel:

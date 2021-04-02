@@ -1,0 +1,116 @@
+#: import C kivy.utils.get_color_from_hex
+#: include class_kivy.kv
+<Row@RecycleKVIDsDataViewBehavior+BoxLayout>:
+    canvas.before:
+        Color:
+            rgba: C("#737373")
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    spacing: "2sp"
+    padding: "3sp"
+    LabelDate:
+        size_hint_x: .2
+        id: ide
+    LabelDateLong:
+        id: name
+    LabelDate:
+        id: area
+    LabelDate:
+        id: prov
+    LabelDate:
+        size_hint_x: .35
+        id: estado
+    LabelDateLong:
+        id: description
+
+
+<ImplementView>:
+    rv: rv
+    BoxContainer:
+        padding: "5sp"
+        orientation: 'vertical'
+        BoxContainer:
+            size_hint_y: .15
+            CustomButton:
+                size_hint_x: .1
+                font_size: "30sp"
+                text: "<"
+                on_release: app.go_menu()
+                on_release: root.clear()
+            Tittle:
+                size_hint_y: .7
+                text: "Implementos"
+            BoxLabel:
+                size_hint_x: .1
+        BoxContainerSentences:
+            orientation: "vertical"
+            size_hint_y: .35
+            BoxContainer:
+                CustomButton2:
+                    text: 'Registros'
+                    on_press: root.show_all_record()
+                CustomButton2:
+                    text: 'Limpiar pantalla'
+                    on_release: root.clear()
+                    on_release: message.text = seeker.text = ""
+            BoxContainer:
+                size_hint_y: .8
+                BoxLabel
+                TextInput:
+                    id: seeker
+                    size_hint_x: 0.9
+                    hint_text: 'Buscar'
+                    multiline: False
+                    padding: dp(5), dp(5), dp(5), dp(5)
+                    on_focus: message.text = ''
+                CustomButton2:
+                    size_hint_x: 0.5
+                    text: 'ID'
+                    on_release: message.text = str(root.search(seeker.text, 1))
+                CustomButton2:
+                    size_hint_x: 0.5
+                    text: 'Estado'
+                    on_release: message.text = str(root.search(seeker.text, 2))
+                CustomButton2:
+                    size_hint_x: 0.5
+                    text: "Area"
+                    on_release: message.text = str(root.search(seeker.text, 3))
+                BoxLabel
+            TextMessage:
+                size_hint: 1., .5
+                id: message
+        GridLayout:
+            cols: 6
+            size_hint_y: None
+            height: dp(20)
+            spacing: "2sp"
+            ButtonColum:
+                size_hint_x: .2
+                text: "id"
+                on_release: root.sort(self.text)
+            ButtonColum:
+                text: "Nombre"
+                on_release: root.sort(self.text)
+            ButtonColum:
+                text: "Area"
+            ButtonColum:
+                text: "Proveedor"
+            ButtonColum:
+                size_hint_x: .35
+                text: "Estado"
+            ButtonColum:
+                text: "Descripticion"
+
+        RecycleView:
+            id: rv
+            scroll_wheel_distance: dp(12) # cantidad de filas que rueda
+            bar_width: dp(10)
+            viewclass: 'Row'
+            RecycleBoxLayout:
+                default_size: None, dp(56)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                spacing: dp(2)
