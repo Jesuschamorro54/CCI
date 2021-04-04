@@ -49,10 +49,19 @@ class DataBase:
 
     # Returned jobs for login
     def jobs(self):
+        self.connection.begin()
         sql = "select id, nombre from cargos"
         self.cursor.execute(sql)
         self.container = self.cursor.fetchall()
         return self.container
+
+    def suppliers(self):
+        self.connection.begin()
+        sql = "Select * from proveedores"
+        self.cursor.execute(sql)
+        self.container = self.cursor.fetchall()
+        return self.container
+
 
     def insert_address(self, address):
         insert_address_func(self.cursor, address)

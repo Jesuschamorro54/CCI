@@ -1,0 +1,125 @@
+#: import C kivy.utils.get_color_from_hex
+
+<AddImplement>:
+    comprar: comprar
+    FloatLayout:
+        BoxContainer:
+            orientation: "vertical"
+            BoxContainerSentences:
+                size_hint_y: .3
+                orientation: "vertical"
+                BoxContainer:
+                    Tittle:
+                        size_hint_y: 1.
+                        text: "Comprar Implementos"
+                BoxContainer:
+                    size_hint_y: .4
+                    TextMessage:
+                        id: error_text
+            BoxContainerSentences:
+                orientation: "vertical"
+                BoxLabel
+                GridLayout:
+                    size_hint_y: .7
+                    spacing: "1sp"
+                    padding: "2sp"
+                    rows: 2
+                    cols: 4
+                    LabelDate:
+                        text: "Nombre"
+                        font_size: "18sp"
+                    LabelDate:
+                        size_hint_x: .4
+                        text: "Costo"
+                        font_size: "18sp"
+                    LabelDate:
+                        size_hint_x: .3
+                        text: "Cantidad"
+                        font_size: "18sp"
+                    LabelDate:
+                        text: "Proveedor"
+                        font_size: "18sp"
+                    Tex:
+                        cols: 0
+                        hint_text: "Nombre"
+                        id: name
+                    Tex:
+                        size_hint_x: .4
+                        hint_text: "Costo"
+                        id: costo
+
+                    Tex:
+                        size_hint_x: .3
+                        hint_text: "Cantidad"
+                        id: cantidad
+                        #on_focus: total.text = "$"+ str(root.total(self.text, costo.text))
+                    Tex:
+                        hint_text: "Proveedor"
+                        id: supplier
+                BoxContainer:
+                    size_hint_y: .4
+                    orientation: "horizontal"
+                    BoxLabel:
+                    LabelText:
+                        font_size: "18sp"
+                        text: "Total de la compra:"
+                    Tex:
+                        id: total
+                        readonly: True
+                        text: "$" + str(root.total(cantidad.text, costo.text))
+                    CustomButton:
+                        size_hint_x: .8
+                        text: "Verificar"
+                        on_release: error_text.text = str(root.validate(name.text, supplier.text))
+                    BoxLabel:
+            BoxContainerSentences:
+                orientation: "vertical"
+                spacing: "10sp"
+                BoxLabel
+                BoxContainer:
+                    BoxLabel
+                    LabelText:
+                        size_hint_x: .7
+                        font_size: "18sp"
+                        text: "Fecha de pedido:"
+                    Tex
+                        hint_text: "YYYY-MM-DD"
+                    BoxLabel
+                BoxContainer:
+                    BoxLabel
+                    CustomButton:
+                        text: "Cancelar"
+                        on_release: app.go_menu()
+                    CustomButton:
+                        id: comprar
+                        text: "Comprar"
+                        disabled: True
+                    BoxLabel
+                BoxLabel
+                    size_hint_y: 2.
+
+<OpenPopup>:
+    message_pop: message_pop
+    size_hint: .6, .3
+    auto_dismiss: False
+    title: 'Error'
+    BoxLayout:
+        spacing: "5sp"
+        padding: "10sp"
+        orientation: "vertical"
+        Label:
+            halign: 'center'
+            text_size: root.width, None
+            size: self.texture_size
+            id: message_pop
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: "5sp"
+            CustomButton:
+                size_hint_y: .8
+                text: 'Cancelar'
+                on_release: root.dismiss()
+            CustomButton:
+                size_hint_y: .8
+                text: "Aceptar"
+                on_release: root.dismiss()

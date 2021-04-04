@@ -1,14 +1,13 @@
 #: import C kivy.utils.get_color_from_hex
 #: set color_no_click C("#232323")
 #: set color_click C("#ED0707")
-#: set color_no_click2 C("#909090")
-#: set color_click2 C("#2E86C1")
+#: set color_no_click2 C("#17202A")
+#: set color_click2 C("#1F618D")
 
 <CustomButton@Button>:
     font_size: "20sp"
     color: C("FFFFFF")
     background_color: 0,0,0,0
-
     canvas.before:
         Color:
             rgba: color_no_click if self.state == "normal" else color_click
@@ -18,16 +17,51 @@
             radius: [20,]
 
 
+<CustomButton2@Button>:
+    font_size: "20sp"
+    color: C("FFFFFF")
+    background_color: 0,0,0,0
+
+    canvas.before:
+        Color:
+            rgba: color_no_click2 if self.state == "normal" else color_click2
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10,]
+
+
+<ButtonColumn@Button>:
+    background_color: 0,0,0,0
+    bold: True
+    canvas.before:
+        Color:
+            rgba: C("#9A9A9A") if self.state == "normal" else C("5E5E5E")
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    color: C("#010101")
+
+
+<CustomButtonSpecial@CustomButton>:
+    canvas.before:
+        Color:
+            rgba: C("#17202A") if self.state == "normal" else C("#003E68")
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
 #AMARILLO
 <BoxLabel@Label>:
     canvas.before:
         Color:
             #rgba: C("#FFC300")
             rgba: C("#000000")
-        RoundedRectangle:
+        Rectangle:
             pos: self.pos
             size: self.size
-            radius: [20, 8]
+
     size_hint: 1. , 1.
 
 #ROJO
@@ -71,18 +105,34 @@
     size_hint: 1. , 1.
     bold: True
 
-<Tittle@Label>:
+
+<BoxContainerSpecial@BoxContainer>:
+    spacing: "1sp"
+    padding: "0sp"
+    orientation: "vertical"
     canvas:
         Color:
-            rgba: 255, 255, 255, .2
+            #rgba: C('#900C3F')
+            rgba: C("#1F618D")
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint: 1. , 1.
+    bold: True
+
+
+<Tittle@Label>:
+    canvas.before:
+        Color:
+            rgba: C("#154360")
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [20,]
+            radius: [10,]
     font_size: "20sp"
     bold: True
     color: C("#FFFFFF")
-    size_hint_y: 0.5
+    size_hint_y: 0.6
 
 <TextMessage@Label>:
     font_size: "16sp"
@@ -92,24 +142,6 @@
     size_hint: .3, .6
     bold: True
 
-<Tex@TextInput>:
-    text: ""
-    font_size: "18sp"
-    multiline: False
-    halign: "center"
-    background_color: C("#181818")
-    foreground_color: C("FFFFFF")
-
-<ButtonColum@Button>:
-    background_color: 0,0,0,0
-    bold: True
-    canvas.before:
-        Color:
-            rgba: C("#9A9A9A") if self.state == "normal" else C("5E5E5E")
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    color: C("#010101")
 
 <LabelDate@Label>:
     canvas.before:
@@ -120,21 +152,19 @@
             pos: self.pos
     padding_x: "5sp"
     padding_y: "5sp"
+    bold: True
 
 <LabelDateLong@LabelDate>:
     text_size: root.width, None
     size: self.texture_size
 
-<CustomButton2@Button>:
-    font_size: "20sp"
-    color: C("FFFFFF")
-    background_color: 0,0,0,0
 
-    canvas.before:
-        Color:
-            rgba: color_no_click2 if self.state == "normal" else color_click2
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [10,]
+<Tex@TextInput>:
+    text: ""
+    font_size: "18sp"
+    multiline: False
+    halign: "center"
+    background_color: C("#181818")
+    foreground_color: C("FFFFFF")
+
 

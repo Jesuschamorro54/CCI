@@ -1,6 +1,8 @@
+__autor__ = "Jesus Chamorro"
+
 from Proyect.database_conect.connect_database import DataBase
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, SlideTransition
+from kivy.uix.screenmanager import ScreenManager, SlideTransition, RiseInTransition
 # from Proyect.code.windows.hire_employee import HireEmployee
 from Proyect.code.windows.menu import Menu
 from Proyect.code.funtions_main.change_windows import *
@@ -39,6 +41,9 @@ class Interface(App):
     def go_implement_view(self):
         go_implement_view_func(self.root, self.transition)
 
+    def go_buy_implement(self):
+        go_buy_implement_func(self.root, self.transition)
+
     #  Go back to menu
     def go_menu(self):
         self.transition.direction = 'right'
@@ -60,6 +65,11 @@ class Login(App):
 
     # Employee login is validated
     def login(self, ide, post):
+        try:
+            ide =  int(ide)
+        except:
+            return "User id must be of type integer "
+
         self.container = dict(database.jobs())
         post_id = 0
         if ide == "":
@@ -95,7 +105,7 @@ class Login(App):
 if __name__ == "__main__":
     # Instance database
     database = DataBase("cci")
-    '''
+
     # Instance for interface
     login_app = Login()
     login_app.run()
@@ -107,6 +117,6 @@ if __name__ == "__main__":
         app.run()
     else:
         exit()
-    '''
-    app = Interface()
-    app.run()
+
+    # app = Interface()
+    # app.run()

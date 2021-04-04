@@ -26,6 +26,8 @@ class ImplementView(Screen):
         self.container_implement = (self.database.implement(0, 1))
         self.container_area = dict(self.database.area())
         self.show()
+        lon = len(self.container_implement)
+        return f"{str(lon)} row(s) found"
 
     def search(self, seeker, identifier):
         self.clear()
@@ -58,7 +60,7 @@ class ImplementView(Screen):
                 return "It was not found"
 
         lon = len(self.container_implement)
-        return f"{lon} row found"
+        return f"{lon} row(s) found"
 
     def sort(self, identifier):
         if identifier == "Nombre":

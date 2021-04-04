@@ -1,65 +1,68 @@
 #: import C kivy.utils.get_color_from_hex
 #: include add_employee.kv
 #: include implement.kv
+#: include add_implement.kv
 
 <Menu>:
-    center_label: center_label
     FloatLayout:
-        BoxLayout:
+        BoxContainer:
             orientation: "vertical"
-            size_hint: 1.0, 1.0
-            pos_hint: {"x": 0.0, "y": 0.0}
-            padding: "5sp"
-            spacing: "5sp"
-            Label:
-                canvas:
-                    Color:
-                        rgba: 255, 255, 255, .2
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [20,]
 
-                text: "Inicio"
-                font_size: "20sp"
-                bold: True
-                color: C("#FFFFFF")
-                size_hint_y: 0.1
-            Label:
-                id: center_label
-                markup: True
-                size_hint_y: 0.5
-            BoxLayout:
+            BoxContainerSentences:
+                size_hint_y: .2
+                BoxLabel:
+                BoxContainer:
+                    Tittle:
+                        text: "Inicio"
+                BoxLabel:
+            BoxContainerSentences:
                 orientation: "horizontal"
-                size_hint_y: 0.1
-                padding: "5sp"
-                Button:
-                    text: "Contratar Empleado"
-                    on_release: app.go_hire()
-                Widget:
-                    size_hint_x: 0.1
-                Button:
-                    text: "Implementos"
-                    on_release: app.go_implement_view()
-            BoxLayout:
-                orientation: "horizontal"
-                size_hint_y: 0.1
-                padding: "5sp"
-                Button:
-                    text: "Set"
-                    # on_release: root.set_mode(mode_spinner.text)
-                Widget:
-                    size_hint_x: 0.1
-                Button:
-                    text: "coll"
-                    # on_release: root.set_mode(mode_spinner.text)
-            Widget:
-                size_hint_y: 0.1
-            BoxLayout:
-                orientation: "horizontal"
-                size_hint_y: 0.1
-                Button:
-                    text: "Exit"
-                    on_release: exit()
+                BoxLabel:
+                    size_hint_x: .1
+                BoxContainerSpecial:
+                    #------------------------------------------------
+                    BoxLabel
+                    #------------------------------------------------
+                    CustomButtonSpecial:
+                        markup: True
+                        text: "· Contratar Empleados           "
+                        on_release: app.go_hire()
+                    CustomButtonSpecial:
+                        text: "· Comprar implementos         "
+                        on_release: app.go_buy_implement()
+                    #------------------------------------------------
+                    BoxLabel
+                    #------------------------------------------------
+                    CustomButtonSpecial:
+                        text: "· Programar mantenimientos"
+                    #------------------------------------------------
+                    BoxLabel
+                    #------------------------------------------------
+                    CustomButtonSpecial:
+                        text: "· Registro de implementos     "
+                        on_release: app.go_implement_view()
+                    CustomButtonSpecial:
+                        text: "· Lista de mantenimientos     "
+                    #------------------------------------------------
+                    BoxLabel
+                    #------------------------------------------------
+                BoxLabel
 
+            BoxContainerSentences:
+                orientation: "vertical"
+                size_hint_y: .4
+                BoxContainer:
+                    size_hint_y: .5
+                    orientation: "horizontal"
+                    BoxLabel
+                    BoxContainerSpecial:
+                        orientation: "vertical"
+                        BoxLabel:
+                            size_hint_y: .1
+                        CustomButtonSpecial:
+                            size_hint_y: .5
+                            text: "Terminar"
+                            on_release: exit()
+                        BoxLabel
 
+                    BoxLabel
