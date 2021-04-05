@@ -1,5 +1,6 @@
-from Proyect.code.windows.hire_employee import HireEmployee
-from Proyect.code.windows.implement_view import ImplementView
+from Proyect.code.windows.hire_employee import *
+from Proyect.code.windows.implement_view import *
+from Proyect.code.windows.buy_implement import *
 
 
 def go_hire_func(root, transition):
@@ -17,13 +18,26 @@ def go_hire_func(root, transition):
 
 
 def go_implement_view_func(root, transition):
-    if root.has_screen(name="implement"):
+    if root.has_screen(name="implement_view"):
         transition.direction = 'left'
-        root.current = "implement"
+        root.current = "implement_view"
         print("go to implement view again")
     else:
-        imp = ImplementView(name="implement")
+        imp = ImplementView(name="implement_view")
         print("go to implement view")
         root.add_widget(imp)
         transition.direction = 'left'
         root.current = imp.name
+
+
+def go_buy_implement_func(root, transition):
+    if root.has_screen(name="buy_implement"):
+        transition.direction = 'left'
+        root.current = "buy_implement"
+        print("go to buy implement again")
+    else:
+        b_imp = AddImplement(name="buy_implement")
+        print("go to buy implement")
+        root.add_widget(b_imp)
+        transition.direction = 'left'
+        root.current = b_imp.name

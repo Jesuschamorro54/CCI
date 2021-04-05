@@ -1,5 +1,4 @@
 #: import C kivy.utils.get_color_from_hex
-#: include class_kivy.kv
 <Row@RecycleKVIDsDataViewBehavior+BoxLayout>:
     canvas.before:
         Color:
@@ -33,27 +32,33 @@
         BoxContainer:
             size_hint_y: .15
             CustomButton:
-                size_hint_x: .1
+                size_hint: .1, .7
                 font_size: "30sp"
                 text: "<"
                 on_release: app.go_menu()
                 on_release: root.clear()
+                on_release: seeker.text = message.text = ""
             Tittle:
                 size_hint_y: .7
-                text: "Implementos"
+                text: "REGISTRO DE IMPLEMENTOS"
             BoxLabel:
                 size_hint_x: .1
         BoxContainerSentences:
             orientation: "vertical"
             size_hint_y: .35
             BoxContainer:
+                BoxLabel:
+                    size_hint_x: .4
                 CustomButton2:
-                    text: 'Registros'
-                    on_press: root.show_all_record()
+                    text: 'Ver todos'
+                    on_release: message.text = root.show_all_record()
+                    on_press: seeker.text = ""
                 CustomButton2:
                     text: 'Limpiar pantalla'
                     on_release: root.clear()
                     on_release: message.text = seeker.text = ""
+                BoxLabel:
+                    size_hint_x: .4
             BoxContainer:
                 size_hint_y: .8
                 BoxLabel
@@ -85,21 +90,21 @@
             size_hint_y: None
             height: dp(20)
             spacing: "2sp"
-            ButtonColum:
+            ButtonColumn:
                 size_hint_x: .2
                 text: "id"
                 on_release: root.sort(self.text)
-            ButtonColum:
+            ButtonColumn:
                 text: "Nombre"
                 on_release: root.sort(self.text)
-            ButtonColum:
+            ButtonColumn:
                 text: "Area"
-            ButtonColum:
+            ButtonColumn:
                 text: "Proveedor"
-            ButtonColum:
+            ButtonColumn:
                 size_hint_x: .35
                 text: "Estado"
-            ButtonColum:
+            ButtonColumn:
                 text: "Descripticion"
 
         RecycleView:
