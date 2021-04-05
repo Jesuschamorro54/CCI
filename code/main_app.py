@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, SlideTransition, RiseInTransit
 # from Proyect.code.windows.hire_employee import HireEmployee
 from Proyect.code.windows.menu import Menu
 from Proyect.code.funtions_main.change_windows import *
+from Proyect.code.windows.buy_implement import AddImplement
 
 
 # from kivy.properties import ObjectProperty
@@ -17,7 +18,6 @@ from Proyect.code.funtions_main.change_windows import *
 # Initial window when executing the program
 
 class Interface(App):
-    print("Menu")
 
     def __init__(self, **kwargs):
         super(Interface, self).__init__(**kwargs)
@@ -105,7 +105,7 @@ class Login(App):
 if __name__ == "__main__":
     # Instance database
     database = DataBase("cci")
-
+    """"
     # Instance for interface
     login_app = Login()
     login_app.run()
@@ -117,6 +117,6 @@ if __name__ == "__main__":
         app.run()
     else:
         exit()
-
-    # app = Interface()
-    # app.run()
+    """
+    app = Interface()
+    app.run()

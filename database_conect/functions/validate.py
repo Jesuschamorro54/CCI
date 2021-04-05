@@ -38,7 +38,7 @@ def valid_address(address):
     return address_str
 
 
-def valid_insert_user(user, address_id):
+def valid_insert_user(user):
     print("\nusuario: ", user)
 
     # validate that the data is complete

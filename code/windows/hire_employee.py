@@ -49,7 +49,7 @@ class HireEmployee(Screen):
         if user[1] == "deploy":
             return "Elija un cargo"
 
-        result = valid_insert_user(user, address)
+        result = valid_insert_user(user)
         if type(result) != list:
             print("result", result)
             return result
