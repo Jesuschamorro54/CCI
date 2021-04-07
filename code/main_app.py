@@ -66,7 +66,7 @@ class Login(App):
     # Employee login is validated
     def login(self, ide, post):
         try:
-            ide =  int(ide)
+            ide = int(ide)
         except:
             return "User id must be of type integer "
 

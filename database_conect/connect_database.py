@@ -85,9 +85,9 @@ class DataBase:
         return ide[0]
 
     # Add implement
-    def insert_implement(self, implement):
+    def insert_implement(self, implement, supplier):
         self.connection.begin()
-        insert_implement_func(self.cursor, implement, self.connection)
+        insert_implement_func(self.cursor, implement, supplier, self.connection)
         self.connection.commit()
 
     # Add supplier
@@ -95,3 +95,10 @@ class DataBase:
         self.connection.begin()
         insert_supplier_func(self.cursor, supplier, self.connection)
         self.connection.commit()
+
+    # Add commodity
+    def insert_commodity(self, implement_id, supplier_id, commodity):
+        self.connection.begin()
+        insert_commodity_func(self.cursor, implement_id, supplier_id, commodity, self.connection)
+        self.connection.commit()
+
