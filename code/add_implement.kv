@@ -21,7 +21,18 @@
                         id: error_text
             BoxContainerSentences:
                 orientation: "vertical"
-                BoxLabel
+                BoxContainer:
+                    orientation: "horizontal"
+                    BoxLabel
+                    BoxContainerSentences
+                        size_hint_x: .2
+                        orientation: "vertical"
+                        CustomButton:
+                            size_hint_y: .5
+                            text: "reload"
+                            on_release: root.reloading()
+                            on_release: error_text.text = passed_text.text = name.text = costo.text = cantidad.text = supplier.text = date.text = ""
+                        BoxLabel
                 GridLayout:
                     size_hint_y: .7
                     spacing: "1sp"
@@ -84,7 +95,7 @@
                         size_hint_x: .8
                         text: "+Add"
                         disabled: True
-                        on_release: passed_text.text = str(root.add_new(f"{name.text}, {supplier.text}", f"{supplier.text}"))
+                        on_release: passed_text.text = str(root.add_new(f"'{name.text}'", f"{supplier.text}"))
                         on_press: passed_text.text = error_text.text = ""
                     BoxLabel:
                         size_hint_x: .2
@@ -118,6 +129,8 @@
                         id: comprar
                         text: "Comprar"
                         disabled: True
+                        on_release: passed_text.text = str(root.add_commodity(f"{cantidad.text}, {costo.text}, {total.text}, '{date.text}'"))
+                        on_release: error_text.text = ""
                     BoxLabel
                 BoxLabel
                     size_hint_y: 2.
