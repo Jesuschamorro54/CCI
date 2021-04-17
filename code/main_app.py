@@ -1,12 +1,10 @@
 __autor__ = "Jesus Chamorro"
 
-from Proyect.database_conect.connect_database import DataBase
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, SlideTransition, RiseInTransition
 # from Proyect.code.windows.hire_employee import HireEmployee
 from Proyect.code.windows.menu import Menu
 from Proyect.code.funtions_main.change_windows import *
-from Proyect.code.windows.buy_implement import AddImplement
 
 
 # from kivy.properties import ObjectProperty
@@ -34,7 +32,7 @@ class Interface(App):
         self.root.add_widget(self.menu)
         return self.root
 
-    #  Go to hire employee
+    #  Change windows  #
     def go_hire(self):
         go_hire_func(self.root, self.transition)
 
@@ -44,12 +42,14 @@ class Interface(App):
     def go_buy_implement(self):
         go_buy_implement_func(self.root, self.transition)
 
-    #  Go back to menu
+    def go_plan_maintenance(self):
+        go_plan_maintenance_func(self.root, self.transition)
+
+    # Go back to menu
     def go_menu(self):
         self.transition.direction = 'right'
         self.root.current = 'menu'
         print("go to menu")
-
 
 
 class Login(App):

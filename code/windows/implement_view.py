@@ -4,7 +4,7 @@ from Proyect.database_conect.connect_database import DataBase
 
 class ImplementView(Screen):
     def __init__(self, **kw):
-        super().__init__(**kw)
+        super(ImplementView).__init__(**kw)
         self.database = DataBase("cci")
         self.container_implement = None
         self.container_area = None
@@ -15,7 +15,7 @@ class ImplementView(Screen):
             {
                 'ide.text': str(self.container_implement[row][0]),
                 'name.text': str(self.container_implement[row][1]),
-                'area.text': str(self.container_area[self.container_implement[row][2]]),
+                'area.text': str(self.container_area[self.container_implement[row][2]]), # corregir problema
                 'prov.text': str(self.container_implement[row][3]),
                 'estado.text': str(self.container_implement[row][4]),
                 'description.text': str(self.container_implement[row][5])
@@ -39,7 +39,7 @@ class ImplementView(Screen):
         # if you are going to search through ID
         if identifier == 1:
             self.container_area = dict(self.database.area())
-            self.container_implement = (self.database.implement(seeker, 2))
+            self.container_implement = self.database.implement(seeker, 2)
             self.show()
         # if you are going to search through State
         if identifier == 2:

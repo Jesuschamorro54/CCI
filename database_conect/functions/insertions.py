@@ -25,7 +25,7 @@ def insert_implement_func(cursor, implement, supplier, connection):
     print("\nInserting implement...")
 
     # Query to run
-    sql = f"INSERT INTO implementos(nombre, proveedor, estado)VALUES({implement}, {supplier}, -2)"
+    sql = f"INSERT INTO implementos(nombre, belonging, proveedor, estado)VALUES({implement}, 7 {supplier}, -2)"
     cursor.execute(sql)
     connection.commit()
 

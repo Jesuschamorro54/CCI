@@ -1,0 +1,144 @@
+#: import C kivy.utils.get_color_from_hex
+<Rows@RecycleKVIDsDataViewBehavior+BoxLayout>:
+    canvas.before:
+        Color:
+            rgba: C("#737373")
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+    spacing: "2sp"
+    padding: "3sp"
+    LabelDate:
+        id: ide
+        size_hint_x: .2
+    LabelDate:
+        id: name
+
+<PlanMaintenance>:
+    rv: rv
+    orientation:
+    BoxContainer:
+        padding: "5sp"
+        orientation: 'vertical'
+
+        # First
+        BoxContainerSentences:
+            size_hint_y: .6
+            BoxLabel:
+            BoxContainer:
+                Tittle:
+                    size_hint_y: 1.
+                    text: "Programar Mantenimiento"
+            BoxLabel:
+
+        # Medium
+        BoxLabel:
+            size_hint_y: .1
+        BoxContainerSentences:
+            orientation: "vertical"
+            BoxContainer:
+                spacing: "0sp"
+                LabelText:
+                    text: "Asignado a mantenimiento: "
+                Spinner:
+                    size_hint_x: .4
+                    text: "deploy"
+                    values: ("Entidad", "Empleado")
+                BoxLabel
+                LabelText
+                    size_hint_x: .2
+                    text: "Día"
+                Tex:
+                    hint_text: "YYYY-MM-DD"
+            BoxContainer:
+                spacing: "0sp"
+                orientation: "horizontal"
+                BoxLabel
+                LabelText:
+                    size_hint_x: .35
+                    text: "Empleado"
+                Tex:
+                    id: entity
+                    hint_text: "write"
+                    size_hint_x: .5
+                BoxLabel
+
+        TextMessage:
+            size_hint_y: .2
+
+        # last
+        BoxContainerSentences:
+            orientation: "horizontal"
+            size_hint_y: 3.
+            BoxContainer:
+                canvas:
+                    Color:
+                        rgba: C('#5B5B5B')
+                        #rgba: C("#000000")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                RecycleView:
+                    id: rv
+                    scroll_wheel_distance: dp(12) # cantidad de filas que rueda
+                    bar_width: dp(10)
+                    viewclass: 'Rows'
+                    RecycleBoxLayout:
+                        default_size: None, dp(56)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: 'vertical'
+                        spacing: dp(2)
+            BoxContainer:
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    BoxContainer:
+                        size_hint_y: 1.
+                        Tex:
+                            id: nombre_add
+                            hint_text: "Nombre"
+                    BoxContainer:
+                        size_hint_y: 1.
+                        orientation: "horizontal"
+                        Tex
+                            id: id_up
+                            size_hint_x: .27
+                            hint_text: "ID"
+                        Tex:
+                            id: name_up
+                            hint_text: "Nombre"
+                    BoxLabel:
+                        size_hint_y: 4.
+
+                ## BOTONES ##
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    size_hint_x: .5
+                    spacing: "20sp"
+                    CustomButton:
+                        text: "Add +"
+                        on_release: root.add(nombre_add.text)
+                    CustomButton:
+                        text: "Update"
+                        on_release: root.update(id_up.text, name_up.text)
+                    CustomButton:
+                        text: "Delete"
+                        on_release: root.delete()
+
+                    BoxLabel:
+                        size_hint_y: 1.6
+                    CustomButton:
+                        text: "Confirm"
+                        on_release:
+                        canvas.before:
+                            Color:
+                                rgba: color_no_click if self.state == "normal" else C("#1AD600")
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [20,]
+            BoxLabel
+                size_hint_x: .4
+        BoxLabel
+            size_hint_y: .6

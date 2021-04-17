@@ -2,6 +2,7 @@
 #: include add_employee.kv
 #: include implement.kv
 #: include add_implement.kv
+#: include maintenance.kv
 
 <Menu>:
     FloatLayout:
@@ -35,6 +36,7 @@
                     #------------------------------------------------
                     CustomButtonSpecial:
                         text: "· Programar mantenimientos"
+                        on_release: app.go_plan_maintenance()
                     #------------------------------------------------
                     BoxLabel
                     #------------------------------------------------
