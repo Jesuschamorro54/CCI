@@ -23,8 +23,16 @@
 
         # First
         BoxContainerSentences:
-            size_hint_y: .6
+            size_hint_y: .5
+            BoxContainer:
+                size_hint_x: .12
+                ImageButton:
+                    source: 'icos/arrow_back.ico'
+                    on_release: app.go_menu()
             BoxLabel:
+                size_hint_x: .3
+            BoxLabel:
+                size_hint_x: .6
             BoxContainer:
                 Tittle:
                     size_hint_y: 1.
@@ -32,49 +40,59 @@
             BoxLabel:
 
         # Medium
-        BoxLabel:
-            size_hint_y: .1
         BoxContainerSentences:
             orientation: "vertical"
+            size_hint_y: .9
             BoxContainer:
                 spacing: "0sp"
+                BoxLabel
                 LabelText:
-                    text: "Asignado a mantenimiento: "
+                    #size_hint_x: .5
+                    text: "Asignado a mantenimiento:"
                 Spinner:
                     size_hint_x: .4
                     text: "deploy"
+                    background_color: C("#4D4D4D")
+                    foreground_color: C("FFFFFF")
                     values: ("Entidad", "Empleado")
                 BoxLabel
                 LabelText
                     size_hint_x: .2
-                    text: "Día"
+                    text: "Día:"
                 Tex:
                     hint_text: "YYYY-MM-DD"
+                BoxLabel
             BoxContainer:
                 spacing: "0sp"
                 orientation: "horizontal"
                 BoxLabel
                 LabelText:
-                    size_hint_x: .35
-                    text: "Empleado"
+                    size_hint_x: .5
+                    text: "Nombre del encargado(a)"
                 Tex:
                     id: entity
                     hint_text: "write"
                     size_hint_x: .5
                 BoxLabel
 
-        TextMessage:
-            size_hint_y: .2
+        BoxContainerSpecial:
+            BoxLabel
+                size_hint_y: .1
+            TextMessage:
+                color: C("FFFFFF")
+                size_hint: 1., .1
+                text: "Detalles del Mantenimiento"
+            TextMessage
+                size_hint: 1., .1
 
         # last
         BoxContainerSentences:
             orientation: "horizontal"
-            size_hint_y: 3.
+            size_hint_y: 2.8
             BoxContainer:
                 canvas:
                     Color:
-                        rgba: C('#5B5B5B')
-                        #rgba: C("#000000")
+                        rgba: C("#000000")
                     Rectangle:
                         pos: self.pos
                         size: self.size
@@ -109,28 +127,10 @@
                             id: name_up
                             hint_text: "Nombre"
                     BoxLabel:
-                        size_hint_y: 4.
-
-                ## BOTONES ##
-                BoxContainerSentences:
-                    orientation: "vertical"
-                    size_hint_x: .5
-                    spacing: "20sp"
-                    CustomButton:
-                        text: "Add +"
-                        on_release: root.add(nombre_add.text)
-                    CustomButton:
-                        text: "Update"
-                        on_release: root.update(id_up.text, name_up.text)
-                    CustomButton:
-                        text: "Delete"
-                        on_release: root.delete()
-
-                    BoxLabel:
-                        size_hint_y: 1.6
+                        size_hint_y: 3.
                     CustomButton:
                         text: "Confirm"
-                        on_release:
+                        on_release: id_up.text = name_up.text = nombre_add.text = ""
                         canvas.before:
                             Color:
                                 rgba: color_no_click if self.state == "normal" else C("#1AD600")
@@ -138,7 +138,30 @@
                                 pos: self.pos
                                 size: self.size
                                 radius: [20,]
+
+                ## BOTONES ##
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    size_hint_x: .5
+                    spacing: "10sp"
+                    CustomButton:
+                        text: "Add +"
+                        on_press: root.add(nombre_add.text)
+                        on_release: id_up.text = name_up.text = nombre_add.text = ""
+                    CustomButton:
+                        text: "Update"
+                        on_press: root.update(id_up.text, name_up.text)
+                        on_release: id_up.text = name_up.text = nombre_add.text = ""
+                    CustomButton:
+                        text: "Delete"
+                        on_press: root.delete()
+                        on_release: id_up.text = name_up.text = nombre_add.text = ""
+
+                    BoxLabel:
+                        size_hint_y: 3.
             BoxLabel
                 size_hint_x: .4
         BoxLabel
-            size_hint_y: .6
+            size_hint_y: 1.
+
+

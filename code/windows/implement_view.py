@@ -4,7 +4,7 @@ from Proyect.database_conect.connect_database import DataBase
 
 class ImplementView(Screen):
     def __init__(self, **kw):
-        super(ImplementView).__init__(**kw)
+        super().__init__(**kw)
         self.database = DataBase("cci")
         self.container_implement = None
         self.container_area = None

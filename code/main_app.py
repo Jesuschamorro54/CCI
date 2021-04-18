@@ -2,15 +2,10 @@ __autor__ = "Jesus Chamorro"
 
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, SlideTransition, RiseInTransition
-# from Proyect.code.windows.hire_employee import HireEmployee
 from Proyect.code.windows.menu import Menu
 from Proyect.code.funtions_main.change_windows import *
+from kivy.core.window import Window
 
-
-# from kivy.properties import ObjectProperty
-# from kivy.uix.gridlayout import GridLayout
-# from kivy.uix.boxlayout import BoxLayout
-# from kivy.core.window import Window
 
 
 # Initial window when executing the program
