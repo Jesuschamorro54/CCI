@@ -24,16 +24,19 @@
                         text: "Contratar Nuevo Empleado"
                 BoxContainerSentences:
                     size_hint_x: .2
-                    size_hint_y: .9
-                    CustomButton:
-                        size_hint_y: .85
-                        text: "Reload"
+                    BoxLabel:
+                        size_hint_x: 1.9
+                    ImageButtonR:
+                        size_hint_y: .9
+                        source: 'icos/reload.ico'
                         on_release: root.reload()
                         on_release: text_notice.text = name.text = cellphone.text = ''
                         on_release: av.text = kra.text = dg.text = tr.text = number.text = district.text = "null"
                         on_release: cargo.text = "deploy"
+                        Image:
+                            size_hint_x: .4
                 BoxLabel:
-                    size_hint_x: .1
+                    size_hint_x: .2
             # Box containing Name and Telephone
             BoxContainer:
                 orientation: "horizontal"

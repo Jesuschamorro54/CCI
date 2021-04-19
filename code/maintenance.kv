@@ -9,6 +9,9 @@
     spacing: "2sp"
     padding: "3sp"
     LabelDate:
+        id: iter
+        size_hint_x: .2
+    LabelDate:
         id: ide
         size_hint_x: .2
     LabelDate:
@@ -16,6 +19,10 @@
 
 <PlanMaintenance>:
     rv: rv
+    message: message
+    name_up: name_up
+    nombre_add: nombre_add
+    id_up: id_up
     orientation:
     BoxContainer:
         padding: "5sp"
@@ -83,6 +90,7 @@
                 size_hint: 1., .1
                 text: "Detalles del Mantenimiento"
             TextMessage
+                id: message
                 size_hint: 1., .1
 
         # last
@@ -90,12 +98,28 @@
             orientation: "horizontal"
             size_hint_y: 2.8
             BoxContainer:
+                orientation: "vertical"
                 canvas:
                     Color:
                         rgba: C("#000000")
                     Rectangle:
                         pos: self.pos
                         size: self.size
+                BoxContainerSentences:
+                    size_hint_y: .1
+                    GridLayout:
+                        cols: 3
+                        size_hint_y: None
+                        height: dp(20)
+                        spacing: "2sp"
+                        ButtonColumn:
+                            size_hint_x: .2
+                            text: "numero"
+                        ButtonColumn:
+                            size_hint_x: .2
+                            text: "id"
+                        ButtonColumn:
+                            text: "nombre del implemento"
                 RecycleView:
                     id: rv
                     scroll_wheel_distance: dp(12) # cantidad de filas que rueda
@@ -115,17 +139,20 @@
                         size_hint_y: 1.
                         Tex:
                             id: nombre_add
-                            hint_text: "Nombre"
+                            hint_text: "Nombre del implemento"
+                            on_focus: message.text = ""
                     BoxContainer:
                         size_hint_y: 1.
                         orientation: "horizontal"
                         Tex
                             id: id_up
-                            size_hint_x: .27
-                            hint_text: "ID"
+                            size_hint_x: .3
+                            hint_text: "Numero"
+                            on_focus: message.text = nombre_add.text = ""
                         Tex:
                             id: name_up
-                            hint_text: "Nombre"
+                            hint_text: "Nombre del implemento"
+                            on_focus: message.text = nombre_add.text = ""
                     BoxLabel:
                         size_hint_y: 3.
                     CustomButton:
@@ -146,15 +173,15 @@
                     spacing: "10sp"
                     CustomButton:
                         text: "Add +"
-                        on_press: root.add(nombre_add.text)
-                        on_release: id_up.text = name_up.text = nombre_add.text = ""
+                        on_release: message.text = str(root.add(nombre_add.text))
+                        on_release: id_up.text = name_up.text = message.text = ""
                     CustomButton:
                         text: "Update"
-                        on_press: root.update(id_up.text, name_up.text)
-                        on_release: id_up.text = name_up.text = nombre_add.text = ""
+                        on_release: message.text = str(root.update(id_up.text, name_up.text))
+                        on_release: nombre_add.text = ""
                     CustomButton:
                         text: "Delete"
-                        on_press: root.delete()
+                        on_release: message.text = str(root.delete())
                         on_release: id_up.text = name_up.text = nombre_add.text = ""
 
                     BoxLabel:
