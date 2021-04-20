@@ -199,3 +199,16 @@
         center: root.center
         size: dp(50), dp(50)
 
+<ImageLabel@Label>
+    source: None
+    canvas.before:
+        Color:
+            rgba: C("#17202A")
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Image:
+        source: root.source
+        center: root.center
+        size: dp(50), dp(50)
+

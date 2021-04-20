@@ -21,34 +21,61 @@
                 BoxLabel:
                     size_hint_x: .1
                 BoxContainerSpecial:
-                    #------------------------------------------------
-                    BoxLabel
-                    #------------------------------------------------
-                    CustomButtonSpecial:
-                        markup: True
-                        text: "· Contratar Empleados           "
-                        on_release: app.go_hire()
-                    CustomButtonSpecial:
-                        text: "· Comprar implementos         "
-                        on_release: app.go_buy_implement()
-                    #------------------------------------------------
-                    BoxLabel
-                    #------------------------------------------------
-                    CustomButtonSpecial:
-                        text: "· Programar mantenimientos"
-                        on_release: app.go_plan_maintenance()
-                    #------------------------------------------------
-                    BoxLabel
-                    #------------------------------------------------
-                    CustomButtonSpecial:
-                        text: "· Registro de implementos     "
-                        on_release: app.go_implement_view()
-                    CustomButtonSpecial:
-                        text: "· Lista de mantenimientos     "
-                    #------------------------------------------------
-                    BoxLabel
-                    #------------------------------------------------
-                BoxLabel
+                    orientation: "horizontal"
+                    BoxContainerSpecial:
+                        size_hint_x: .2
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                        ImageLabel:
+                            source: 'icos/maleta.ico'
+                        ImageLabel:
+                            source: 'icos/carro.ico'
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                        ImageLabel:
+                            source: 'icos/clock_b.ico'
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                        ImageLabel:
+                            source: 'icos/eye.ico'
+                        ImageLabel:
+                            source: 'icos/eye.ico'
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                    BoxContainerSpecial:
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                        CustomButtonSpecial:
+                            markup: True
+                            text: "· Contratar Empleados           "
+                            on_release: app.go_hire()
+                        CustomButtonSpecial:
+                            text: "· Comprar implementos         "
+                            on_release: app.go_buy_implement()
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                        CustomButtonSpecial:
+                            text: "· Programar mantenimientos"
+                            on_release: app.go_plan_maintenance()
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                        CustomButtonSpecial:
+                            text: "· Registro de implementos     "
+                            on_release: app.go_implement_view()
+                        CustomButtonSpecial:
+                            text: "· Lista de mantenimientos     "
+                        #------------------------------------------------
+                        BoxLabel
+                        #------------------------------------------------
+                BoxLabel:
+                    size_hint_x: 1.7
 
             BoxContainerSentences:
                 orientation: "vertical"

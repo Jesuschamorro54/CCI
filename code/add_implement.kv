@@ -21,6 +21,7 @@
                         id: error_text
             BoxContainerSentences:
                 orientation: "vertical"
+                size_hint_y: .7
                 BoxContainer:
                     orientation: "horizontal"
                     BoxLabel
@@ -104,7 +105,7 @@
                 spacing: "10sp"
                 TextMessage:
                     id: passed_text
-                    size_hint: 1., 1.
+                    size_hint: 1., 2.
                     font_size:
                     color: C("#33BB00")
                 BoxContainer:
@@ -133,4 +134,4 @@
                         on_release: error_text.text = ""
                     BoxLabel
                 BoxLabel
-                    size_hint_y: 2.
+                    size_hint_y: 3.

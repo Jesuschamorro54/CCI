@@ -22,7 +22,7 @@ def valid_address(address):
     for i in range(len(address)):
         if address[i] == '':
             address[i] = 'null'
-        elif address[4] != 'null':
+        elif address[4] != 'null' or address[4] != "":
             try:
                 address[4] = int(address[4])
             except:
