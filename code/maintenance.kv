@@ -157,6 +157,7 @@
                         size_hint_y: 3.
                     CustomButton:
                         text: "Confirm"
+                        on_release: root.confirm()
                         on_release: id_up.text = name_up.text = nombre_add.text = ""
                         canvas.before:
                             Color:

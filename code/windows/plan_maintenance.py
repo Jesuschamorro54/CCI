@@ -81,7 +81,10 @@ class PlanMaintenance(Screen):
             return ""
 
     def confirm(self):
-        pass
+        for i in range(self.iterator):
+            print(self.rv.data[i]['name.text'], "- ", self.rv.data[i]['ide.text'])
+        self.rv.data = []
+        self.clear()
 
     def clear(self):
         self.message.text = self.nombre_add.text = ""
