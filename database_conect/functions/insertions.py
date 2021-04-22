@@ -50,3 +50,11 @@ def insert_commodity_func(cursor, implement_id, supplier_id, commodity, connecti
     connection.commit()
 
 
+def insert_maintenance_func(cursor, connection, authorized, assigned, date):
+    # Print to check
+    print("\nInserting maintenance...")
+
+    # Query to run
+    sql = f"INSERT INTO mantenimiento (authorized, assigned, programmed, estado)VALUES({authorized}, {assigned}, {date}, -1)"
+    cursor.execute(sql)
+    connection.commit()

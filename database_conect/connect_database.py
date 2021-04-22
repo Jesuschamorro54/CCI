@@ -15,6 +15,20 @@ class DataBase:
     def valid_login(self, ide, post):
         return valid_login_func(self.cursor, ide, post)
 
+    # Returned all employee
+    def employee(self):
+        sql = 'select * from empleados'
+        self.cursor.execute(sql)
+        self.container = self.cursor.fetchall()
+        return self.container
+
+    # Returned all type_services
+    def services(self):
+        sql = 'select * from type_servicies'
+        self.cursor.execute(sql)
+        self.container = self.cursor.fetchall()
+        return self.container
+
     # Returned implement for view
     def implement(self, seeker, identifier):
         self.connection.begin()
@@ -101,4 +115,15 @@ class DataBase:
         self.connection.begin()
         insert_commodity_func(self.cursor, implement_id, supplier_id, commodity, self.connection)
         self.connection.commit()
+
+    # Add maintenance
+    def insert_maintenance(self,authorized, assigned, date):
+        insert_maintenance_func(self.cursor, self.connection, authorized, assigned, date)
+        self.connection.commit()
+
+        # Returned id of maintenance
+        self.cursor.execute("SELECT last_insert_id()")
+        ide = self.cursor.fetchone()
+        print("print id: ", ide)
+        return ide[0]
 

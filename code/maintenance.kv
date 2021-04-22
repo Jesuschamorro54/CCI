@@ -22,6 +22,9 @@
     message: message
     name_up: name_up
     nombre_add: nombre_add
+    entity: entity
+    date: date
+    asignado: asignado
     id_up: id_up
     orientation:
     BoxContainer:
@@ -57,6 +60,7 @@
                     #size_hint_x: .5
                     text: "Asignado a mantenimiento:"
                 Spinner:
+                    id: asignado
                     size_hint_x: .4
                     text: "deploy"
                     background_color: C("#4D4D4D")
@@ -67,6 +71,7 @@
                     size_hint_x: .2
                     text: "Día:"
                 Tex:
+                    id: date
                     hint_text: "YYYY-MM-DD"
                 BoxLabel
             BoxContainer:
@@ -157,7 +162,7 @@
                         size_hint_y: 3.
                     CustomButton:
                         text: "Confirm"
-                        on_release: root.confirm()
+                        on_release: message.text =  str(root.confirm(asignado.text, date.text, entity.text))
                         on_release: id_up.text = name_up.text = nombre_add.text = ""
                         canvas.before:
                             Color:
@@ -191,5 +196,3 @@
                 size_hint_x: .4
         BoxLabel
             size_hint_y: 1.
-
-

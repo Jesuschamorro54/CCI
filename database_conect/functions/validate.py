@@ -69,3 +69,27 @@ def valid_insert_user(user):
             return "Numero de telefono incorrecto"
 
     return user
+
+
+def valid_date(date):
+    if date == '' or len(date) != 10:
+        print("Invalid date")
+        return False
+
+    list_date = date.split(sep='-')
+    print(list_date)
+    day = int(list_date[2])
+    year = int(list_date[0])
+    month = int(list_date[1])
+
+    if not (1 <= day <= 31):
+        print("Invalid day")
+        return False
+    elif not (1 <= month <= 12):
+        print("Invalid month")
+        return False
+    elif year > 2021:
+        print("Invalid year")
+        return False
+
+    return True
