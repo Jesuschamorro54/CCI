@@ -4,6 +4,18 @@
 #: set color_no_click2 C("#17202A")
 #: set color_click2 C("#1F618D")
 
+<CustomButtonIco@Button>
+    id: b
+    color: C("FFFFFF")
+    background_color: 0,0,0,0
+    canvas.before:
+        Color:
+            rgba: C("FFFFFF") if self.state == "normal" else color_click
+        Ellipse:
+            pos: self.pos
+            size: root.size
+
+
 <CustomButton@Button>:
     font_size: "20sp"
     color: C("FFFFFF")
@@ -76,6 +88,7 @@
             radius: [20, 8]
     size_hint: 1. , 1.
     bold: True
+    font_size: "18sp"
 
 #MORADO
 <BoxContainer@BoxLayout>:
@@ -135,9 +148,14 @@
     size_hint_y: 0.6
 
 <TextMessage@Label>:
+    canvas.before:
+        Color:
+            #rgba: C("#FFC300")
+            rgba: C("#000000")
+        Rectangle:
+            pos: self.pos
+            size: self.size
     font_size: "16sp"
-    readonly: True
-    background_color: C("000000")
     color: C("FF0000")
     size_hint: .3, .6
     bold: True
@@ -167,4 +185,30 @@
     background_color: C("#181818")
     foreground_color: C("FFFFFF")
 
+<ImageButton@CustomButtonIco>
+    source: None
+    Image:
+        source: root.source
+        center: root.center
+        size: self.size
+
+<ImageButtonR@CustomButtonIco>:
+    source: None
+    Image:
+        source: root.source
+        center: root.center
+        size: dp(50), dp(50)
+
+<ImageLabel@Label>
+    source: None
+    canvas.before:
+        Color:
+            rgba: C("#17202A")
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Image:
+        source: root.source
+        center: root.center
+        size: dp(50), dp(50)
 

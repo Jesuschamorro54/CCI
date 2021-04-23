@@ -1,0 +1,198 @@
+#: import C kivy.utils.get_color_from_hex
+<Rows@RecycleKVIDsDataViewBehavior+BoxLayout>:
+    canvas.before:
+        Color:
+            rgba: C("#737373")
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+    spacing: "2sp"
+    padding: "3sp"
+    LabelDate:
+        id: iter
+        size_hint_x: .2
+    LabelDate:
+        id: ide
+        size_hint_x: .2
+    LabelDate:
+        id: name
+
+<PlanMaintenance>:
+    rv: rv
+    message: message
+    name_up: name_up
+    nombre_add: nombre_add
+    entity: entity
+    date: date
+    asignado: asignado
+    id_up: id_up
+    orientation:
+    BoxContainer:
+        padding: "5sp"
+        orientation: 'vertical'
+
+        # First
+        BoxContainerSentences:
+            size_hint_y: .5
+            BoxContainer:
+                size_hint_x: .12
+                ImageButton:
+                    source: 'icos/arrow_back.ico'
+                    on_release: app.go_menu()
+            BoxLabel:
+                size_hint_x: .3
+            BoxLabel:
+                size_hint_x: .6
+            BoxContainer:
+                Tittle:
+                    size_hint_y: 1.
+                    text: "Programar Mantenimiento"
+            BoxLabel:
+
+        # Medium
+        BoxContainerSentences:
+            orientation: "vertical"
+            size_hint_y: .9
+            BoxContainer:
+                spacing: "0sp"
+                BoxLabel
+                LabelText:
+                    #size_hint_x: .5
+                    text: "Asignado a mantenimiento:"
+                Spinner:
+                    id: asignado
+                    size_hint_x: .4
+                    text: "deploy"
+                    background_color: C("#4D4D4D")
+                    foreground_color: C("FFFFFF")
+                    values: ("Entidad", "Empleado")
+                BoxLabel
+                LabelText
+                    size_hint_x: .2
+                    text: "Día:"
+                Tex:
+                    id: date
+                    hint_text: "YYYY-MM-DD"
+                BoxLabel
+            BoxContainer:
+                spacing: "0sp"
+                orientation: "horizontal"
+                BoxLabel
+                LabelText:
+                    size_hint_x: .5
+                    text: "Nombre del encargado(a)"
+                Tex:
+                    id: entity
+                    hint_text: "write"
+                    size_hint_x: .5
+                BoxLabel
+
+        BoxContainerSpecial:
+            BoxLabel
+                size_hint_y: .1
+            TextMessage:
+                color: C("FFFFFF")
+                size_hint: 1., .1
+                text: "Detalles del Mantenimiento"
+            TextMessage
+                id: message
+                size_hint: 1., .1
+
+        # last
+        BoxContainerSentences:
+            orientation: "horizontal"
+            size_hint_y: 2.8
+            BoxContainer:
+                orientation: "vertical"
+                canvas:
+                    Color:
+                        rgba: C("#000000")
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                BoxContainerSentences:
+                    size_hint_y: .1
+                    GridLayout:
+                        cols: 3
+                        size_hint_y: None
+                        height: dp(20)
+                        spacing: "2sp"
+                        ButtonColumn:
+                            size_hint_x: .2
+                            text: "numero"
+                        ButtonColumn:
+                            size_hint_x: .2
+                            text: "id"
+                        ButtonColumn:
+                            text: "nombre del implemento"
+                RecycleView:
+                    id: rv
+                    scroll_wheel_distance: dp(12) # cantidad de filas que rueda
+                    bar_width: dp(10)
+                    viewclass: 'Rows'
+                    RecycleBoxLayout:
+                        default_size: None, dp(56)
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        orientation: 'vertical'
+                        spacing: dp(2)
+            BoxContainer:
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    BoxContainer:
+                        size_hint_y: 1.
+                        Tex:
+                            id: nombre_add
+                            hint_text: "Nombre del implemento"
+                            on_focus: message.text = ""
+                    BoxContainer:
+                        size_hint_y: 1.
+                        orientation: "horizontal"
+                        Tex
+                            id: id_up
+                            size_hint_x: .3
+                            hint_text: "Numero"
+                            on_focus: message.text = nombre_add.text = ""
+                        Tex:
+                            id: name_up
+                            hint_text: "Nombre del implemento"
+                            on_focus: message.text = nombre_add.text = ""
+                    BoxLabel:
+                        size_hint_y: 3.
+                    CustomButton:
+                        text: "Confirm"
+                        on_release: message.text =  str(root.confirm(asignado.text, date.text, entity.text))
+                        on_release: id_up.text = name_up.text = nombre_add.text = ""
+                        canvas.before:
+                            Color:
+                                rgba: color_no_click if self.state == "normal" else C("#1AD600")
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [20,]
+
+                ## BOTONES ##
+                BoxContainerSentences:
+                    orientation: "vertical"
+                    size_hint_x: .5
+                    spacing: "10sp"
+                    CustomButton:
+                        text: "Add +"
+                        on_release: message.text = str(root.add(nombre_add.text))
+                        on_release: id_up.text = name_up.text = message.text = ""
+                    CustomButton:
+                        text: "Update"
+                        on_release: message.text = str(root.update(id_up.text, name_up.text))
+                        on_release: nombre_add.text = ""
+                    CustomButton:
+                        text: "Delete"
+                        on_release: message.text = str(root.delete())
+                        on_release: id_up.text = name_up.text = nombre_add.text = ""
+
+                    BoxLabel:
+                        size_hint_y: 3.
+            BoxLabel
+                size_hint_x: .4
+        BoxLabel
+            size_hint_y: 1.

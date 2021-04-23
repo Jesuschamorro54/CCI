@@ -25,7 +25,7 @@ def insert_implement_func(cursor, implement, supplier, connection):
     print("\nInserting implement...")
 
     # Query to run
-    sql = f"INSERT INTO implementos(nombre, proveedor, estado)VALUES({implement}, {supplier}, -2)"
+    sql = f"INSERT INTO implementos(nombre, belonging, proveedor, estado)VALUES({implement}, 7 {supplier}, -2)"
     cursor.execute(sql)
     connection.commit()
 
@@ -50,3 +50,11 @@ def insert_commodity_func(cursor, implement_id, supplier_id, commodity, connecti
     connection.commit()
 
 
+def insert_maintenance_func(cursor, connection, authorized, assigned, date):
+    # Print to check
+    print("\nInserting maintenance...")
+
+    # Query to run
+    sql = f"INSERT INTO mantenimiento (authorized, assigned, programmed, estado)VALUES({authorized}, {assigned}, {date}, -1)"
+    cursor.execute(sql)
+    connection.commit()

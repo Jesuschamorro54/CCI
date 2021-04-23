@@ -3,37 +3,35 @@
 
 <HireEmployee>:
     FloatLayout:
-
         # Box containing the complete app
         BoxLayout:
             orientation: "vertical"
-            size_hint: 1.0, 1.0
-            pos_hint: {"x": 0.0, "y": 0.0}
-            padding: "5sp"
             spacing: "5sp"
-
             BoxContainer:
                 orientation: "horizontal"
                 size_hint_y: .3
                 BoxLabel:
-                    size_hint_x: .3
+                    size_hint_x: .4
                 # LOGIN
                 BoxContainerSentences:
                     Tittle:
-                        size_hint_y: .8
+                        size_hint_y: .7
                         text: "Contratar Nuevo Empleado"
                 BoxContainerSentences:
                     size_hint_x: .2
-                    size_hint_y: .9
-                    CustomButton:
-                        size_hint_y: .85
-                        text: "Reload"
+                    BoxLabel:
+                        size_hint_x: 1.9
+                    ImageButtonR:
+                        size_hint_y: .8
+                        source: 'icos/reload.ico'
                         on_release: root.reload()
                         on_release: text_notice.text = name.text = cellphone.text = ''
                         on_release: av.text = kra.text = dg.text = tr.text = number.text = district.text = "null"
                         on_release: cargo.text = "deploy"
+                        Image:
+                            size_hint_x: .4
                 BoxLabel:
-                    size_hint_x: .1
+                    size_hint_x: .2
             # Box containing Name and Telephone
             BoxContainer:
                 orientation: "horizontal"
@@ -45,88 +43,90 @@
                     BoxContainer:
                         LabelText:
                             font_size: "18sp"
-                            size_hint: .2, .8
+                            size_hint: .21 , .6
                             text: "Nombres y Apellidos"
                         Tex:
-                            size_hint: .3, .8
+                            size_hint: .3, .6
                             id: name
                             on_focus: text_notice.text = ""
-
+                        BoxLabel:
+                            size_hint_x: .4
                     BoxContainer:
                         LabelText:
                             font_size: "18sp"
-                            size_hint: .2, .8
+                            size_hint: .2, .6
                             text: "Telefono"
                         Tex:
-                            size_hint: .4, .8
+                            size_hint: .4, .6
                             id: cellphone
                             on_focus: text_notice.text = ""
                         BoxLabel:
-                            size_hint_x: .27
 
                     BoxContainer:
                         LabelText:
                             font_size: "18sp"
-                            size_hint: .2, .8
+                            size_hint: .2, .6
                             text: "CARGO"
                         Spinner:
                             id: cargo
                             font_size: "14sp"
-                            size_hint: .4, .8
+                            size_hint: .4, .6
                             background_color: C("#4D4D4D")
                             foreground_color: C("FFFFFF")
                             text: "deploy"
                             on_release: cargo.values = root.return_post()
                             on_release: text_notice.text = ""
                         BoxLabel:
-                            size_hint_x: .27
                 #------#
                 BoxLabel:
                     size_hint_x: .3
 
             # Containing Address
             BoxContainer:
-                size_hint_y: .8
+                size_hint_y: .6
                 BoxLabel:
                     size_hint_x: .1
                 BoxContainerSentences:
+                    padding: "0sp"
+                    spacing: "2sp"
                     orientation: "vertical"
                     canvas:
                         Color:
-                            rgba: C('#34002D')
+                            rgba: C('#1F618D')
                         RoundedRectangle:
                             pos: self.pos
                             size: self.size
-                    LabelText:
-                        size_hint_y: .7
-                        text: "Dirección"
+                    TextMessage:
+                        color: C("FFFFFF")
+                        size_hint: 1, .7
+                        text: "DIRECCION"
                     BoxContainer:
                         LabelText:
                             text: "C:"
                         Tex:
                             id: av
-                            text: "null"
+                            hint_text: "null"
                             on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
                             text: "Kra:"
                         Tex:
                             id: kra
-                            text: "null"
+                            hint_text: "null"
                             on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
                             text: "Dg:"
                         Tex:
                             id: dg
-                            text: "null"
+                            hint_text: "null"
                             on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
                             text: "Tr:"
                         Tex:
                             id: tr
-                            text: "null"
+                            hint_text: "null"
                             on_focus: text_notice.text = ""
                     BoxContainer:
                         LabelText:
@@ -134,7 +134,7 @@
                             size_hint_x: .5
                         Tex:
                             id: number
-                            text: "null"
+                            hint_text: "null"
                             on_focus: text_notice.text = ""
                         BoxLabel
                         LabelText:
@@ -142,8 +142,10 @@
                         Tex:
                             size_hint_x: 2.5
                             id: district
-                            text: "null"
+                            hint_text: "null"
                             on_focus: text_notice.text = ""
+                    BoxLabel
+                        size_hint_y: .2
 
                 BoxLabel:
                     size_hint_x: .1
@@ -154,10 +156,11 @@
                 BoxContainerSentences:
                     orientation: "vertical"
                     BoxContainer:
+                        size_hint_y: .7
                         LabelText:
                             text: "Fecha de inicio"
                         Tex:
-                            text: "YYYY-MM-DD"
+                            hint_text: "YYYY-MM-DD"
                             id: date_init
                             markup: True
                             on_focus: text_notice.text = ""
@@ -177,6 +180,6 @@
                             on_release:
                                 text_notice.text = str(root.add_employee(f"{name.text},{cargo.text},{cellphone.text},null,{date_init.text}", root.insert_address(f"{av.text},{kra.text},{dg.text},{tr.text},{number.text},{district.text}")))
                     BoxLabel:
-                        id: list
+                        size_hint_y: 1.
                 BoxLabel:
                     size_hint_x: .4

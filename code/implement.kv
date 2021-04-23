@@ -31,18 +31,22 @@
         orientation: 'vertical'
         BoxContainer:
             size_hint_y: .15
-            CustomButton:
+            BoxLabel:
+                size_hint_x: .1
+            ImageButton:
+                size_hint_x: .1
+                source: 'icos/arrow_back.ico'
                 size_hint: .1, .7
-                font_size: "30sp"
-                text: "<"
                 on_release: app.go_menu()
                 on_release: root.clear()
                 on_release: seeker.text = message.text = ""
+            BoxLabel:
+                size_hint_x: .65
             Tittle:
                 size_hint_y: .7
                 text: "REGISTRO DE IMPLEMENTOS"
             BoxLabel:
-                size_hint_x: .1
+                size_hint_x: 1.
         BoxContainerSentences:
             orientation: "vertical"
             size_hint_y: .35
@@ -83,7 +87,7 @@
                     on_release: message.text = str(root.search(seeker.text, 3))
                 BoxLabel
             TextMessage:
-                size_hint: 1., .5
+                size_hint: 1., 1.
                 id: message
         GridLayout:
             cols: 6
