@@ -79,8 +79,15 @@ class PlanMaintenance(Screen):
 
     # -- Press to confirm -- #
     def confirm(self, asig, date, entity):
+        global id_employee, id_service
+
+        # check date
         if not valid_date(date):
             return "Fecha invalida"
+
+        # check fields
+        if asig == "" or entity == "" or self.rv.data == []:
+            return "Debe llenar todos los campos"
 
         if asig == "Entidad":
             self.container_services = self.database.services()
@@ -101,19 +108,24 @@ class PlanMaintenance(Screen):
             self.container_employee = self.database.employee()
             long_employee = len(self.container_employee)
             print(self.container_employee)
+            print("len:", long_employee)
 
             #  Check that the employee entered is already in the database
             for key in range(long_employee):
-                if self.container_employee[key][1].lower() == entity:
+                if self.container_employee[key][1].lower() == entity.lower():
                     id_employee = self.container_employee[key][0]
                     break
-                if key == (long_employee - 1) and self.container_employee[key][1].lower() != entity:
+                if key == (long_employee - 1) and self.container_employee[key][1].lower() != entity.lower():
                     return "El empleado no se encuentra en la base de datos"
                 print("no se encontró")
+
+        maintenance_id = self.database.insert_maintenance(203040, id_employee, date)
+        print(maintenance_id)
 
         for i in range(self.iterator):
             print(self.rv.data[i]['ide.text'], "-", self.rv.data[i]['name.text'])
         self.rv.data = []
+        self.iterator = 0
         self.clear()
 
         return ""

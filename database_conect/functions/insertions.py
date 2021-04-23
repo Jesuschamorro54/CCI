@@ -55,6 +55,6 @@ def insert_maintenance_func(cursor, connection, authorized, assigned, date):
     print("\nInserting maintenance...")
 
     # Query to run
-    sql = f"INSERT INTO mantenimiento (authorized, assigned, programmed, estado)VALUES({authorized}, {assigned}, {date}, -1)"
+    sql = f"INSERT INTO mantenimiento (authorized, assigned, programmed, estado)VALUES({authorized}, {assigned}, '{date}', -1)"
     cursor.execute(sql)
     connection.commit()

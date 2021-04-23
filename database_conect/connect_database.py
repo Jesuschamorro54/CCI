@@ -117,7 +117,7 @@ class DataBase:
         self.connection.commit()
 
     # Add maintenance
-    def insert_maintenance(self,authorized, assigned, date):
+    def insert_maintenance(self, authorized, assigned, date):
         insert_maintenance_func(self.cursor, self.connection, authorized, assigned, date)
         self.connection.commit()
 
