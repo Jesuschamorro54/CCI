@@ -58,22 +58,22 @@ def insert_maintenance_func(cursor, connection, authorized, assigned, date, opti
     sql1 = f"INSERT INTO mantenimiento (authorized, assigned, programmed, estado)VALUES({authorized}, {assigned}, '{date}', -1)"
     sql2 = f"INSERT INTO mantenimiento (authorized, entity, programmed, estado)VALUES({authorized}, {assigned}, '{date}', -1)"
 
-    if option == "employe":
+    if option == "employee":
         cursor.execute(sql1)
     else:
         cursor.execute(sql2)
     connection.commit()
 
 
-def insert_recent_func(cursor,connection, authorized, assigned, programmed, maintenance, implement, option):
+def insert_recent_func(cursor, connection, authorized, assigned, programmed, maintenance, implement, option):
     # Print to check
     print("\nInserting recent...")
 
     # Query to run
-    sql1 = f"INSERT INTO mantenimiento (authorized, assigned, programmed, maintenance, implement)VALUES({authorized}, {assigned}, {programmed}, {maintenance}, {implement})"
-    sql2 = f"INSERT INTO mantenimiento (authorized, entity, programmed, maintenance, implement)VALUES({authorized}, {assigned}, {programmed}, {maintenance}, {implement}) "
+    sql1 = f"INSERT INTO recents (authorized, assigned, programmed, maintenance, implement)VALUES({authorized}, {assigned}, '{programmed}', {maintenance}, {implement})"
+    sql2 = f"INSERT INTO recents (authorized, entity, programmed, maintenance, implement)VALUES({authorized}, {assigned}, '{programmed}', {maintenance}, {implement}) "
 
-    if option == "employe":
+    if option == "employee":
         cursor.execute(sql1)
     else:
         cursor.execute(sql2)

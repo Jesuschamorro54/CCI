@@ -23,7 +23,7 @@ class PlanMaintenance(Screen):
         self.container_implement = self.database.implement(0, 1)
         long_implement = len(self.container_implement)
         if value == "":
-            return "Escriba algo"
+            return "El campo 'nombre' está vacio"
 
         #  Check that the implement entered is already in the database
         for key in range(long_implement):
@@ -88,7 +88,7 @@ class PlanMaintenance(Screen):
 
         # check fields
         if asig == "" or entity == "" or self.rv.data == []:
-            return "Debe llenar todos los campos"
+            return "Aun hay campos sin completar"
 
         if asig == "Entidad":
             self.container_services = self.database.services()
@@ -101,18 +101,19 @@ class PlanMaintenance(Screen):
                     id_service = self.container_services[key][0]
                     break
                 if key == (long_services - 1) and self.container_services[key][1].lower() != entity:
-                    print("Se encontró el servicio")
                     return "El servicio no se encuentra en la base de datos"
 
             # Insert maintenance
             maintenance_id = self.database.insert_maintenance(self.logger, id_service, date, option="entity")
-            print("Maintenance id:", maintenance_id)
+
+            # Insert recent
+            for i in range(self.iterator):
+                implement_id = self.rv.data[i]['ide.text']
+                self.database.insert_recent(self.logger, id_service, date, maintenance_id, implement_id, option="entity")
 
         if asig == "Empleado":
             self.container_employee = self.database.employee()
             long_employee = len(self.container_employee)
-            print(self.container_employee)
-            print("len:", long_employee)
 
             #  Check that the employee entered is already in the database
             for key in range(long_employee):
@@ -120,17 +121,15 @@ class PlanMaintenance(Screen):
                     id_employee = self.container_employee[key][0]
                     break
                 if key == (long_employee - 1) and self.container_employee[key][1].lower() != entity.lower():
-                    print("no se encontró")
                     return "El empleado no se encuentra en la base de datos"
 
             # Insert maintenance
             maintenance_id = self.database.insert_maintenance(self.logger, id_employee, date, option="employee")
-            print("Maintenance id:", maintenance_id)
 
-        for i in range(self.iterator):
-            print(self.rv.data[i]['ide.text'], "-", self.rv.data[i]['name.text'])
-        self.rv.data = []
-        self.iterator = 0
+            # Insert recent
+            for i in range(self.iterator):
+                implement_id = self.rv.data[i]['ide.text']
+                self.database.insert_recent(self.logger, id_employee, date, maintenance_id, implement_id, option="employee")
         self.clear("all")
 
         return ""
@@ -152,3 +151,5 @@ class PlanMaintenance(Screen):
             self.message.text = self.nombre_add.text = ""
             self.id_up.text = self.entity.text = self.date.text = self.name_up.text = ""
             self.asignado.text = "deploy"
+            self.rv.data = []
+            self.iterator = 0

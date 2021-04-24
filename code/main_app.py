@@ -4,12 +4,11 @@ from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, SlideTransition, RiseInTransition
 from Proyect.code.windows.menu import Menu
 from Proyect.code.funtions_main.change_windows import *
-from kivy.core.window import Window
 
 
 # Initial window when executing the program
 
-class Interface(App):
+class Cci(App):
 
     def __init__(self, logger, **kwargs):
         super().__init__(**kwargs)
@@ -110,7 +109,7 @@ if __name__ == "__main__":
 
     # If "cancel" was pressed in the login window. Finish process
     if signal == 1:
-        app = Interface(logger=login_app.ide)
+        app = Cci(logger=login_app.ide)
         app.run()
     else:
         exit()
