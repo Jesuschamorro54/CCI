@@ -7,17 +7,18 @@ from Proyect.code.funtions_main.change_windows import *
 from kivy.core.window import Window
 
 
-
 # Initial window when executing the program
 
 class Interface(App):
 
-    def __init__(self, **kwargs):
-        super(Interface, self).__init__(**kwargs)
+    def __init__(self, logger, **kwargs):
+        super().__init__(**kwargs)
         self.transition = SlideTransition(duration=.35)
         self.container = dict(database.jobs())
         self.signal = None
         self.menu = None
+        self.logger = logger
+        print("User: ", self.logger)
 
         self.root = None  # The root screen manager
 
@@ -38,7 +39,7 @@ class Interface(App):
         go_buy_implement_func(self.root, self.transition)
 
     def go_plan_maintenance(self):
-        go_plan_maintenance_func(self.root, self.transition)
+        go_plan_maintenance_func(self.root, self.transition, self.logger)
 
     # Go back to menu
     def go_menu(self):
@@ -48,12 +49,12 @@ class Interface(App):
 
 
 class Login(App):
-    print("login")
 
     def __init__(self, **kwargs):
         super(Login, self).__init__(**kwargs)
         self.container = None
         self.signal = 0
+        self.ide = 0
 
     def build(self):
         pass
@@ -81,6 +82,7 @@ class Login(App):
         # corresponds to the user or that the user exists in the database
         if database.valid_login(ide, post_id):
             login_app.signal = 1
+            self.ide = ide
             login_app.stop()
             return "OK"
         else:
@@ -100,7 +102,7 @@ class Login(App):
 if __name__ == "__main__":
     # Instance database
     database = DataBase("cci")
-    """"
+
     # Instance for interface
     login_app = Login()
     login_app.run()
@@ -108,10 +110,10 @@ if __name__ == "__main__":
 
     # If "cancel" was pressed in the login window. Finish process
     if signal == 1:
-        app = Interface()
+        app = Interface(logger=login_app.ide)
         app.run()
     else:
         exit()
-    """
-    app = Interface()
-    app.run()
+
+    # app = Interface(302040)
+    # app.run()

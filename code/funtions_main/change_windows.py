@@ -44,13 +44,13 @@ def go_buy_implement_func(root, transition):
         root.current = b_imp.name
 
 
-def go_plan_maintenance_func(root, transition):
+def go_plan_maintenance_func(root, transition, logger):
     if root.has_screen(name="plan"):
         transition.direction = 'left'
         root.current = "plan"
         print("go to plan maintenance")
     else:
-        b_imp = PlanMaintenance(name="plan")
+        b_imp = PlanMaintenance(name="plan", logger=logger)
         print("go to plan maintenance")
         root.add_widget(b_imp)
         transition.direction = 'left'
