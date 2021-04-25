@@ -4,7 +4,7 @@
 #: include add_implement.kv
 #: include maintenance.kv
 
-<Menu>:
+<WindowMenu>:
     FloatLayout:
         BoxContainer:
             orientation: "vertical"
@@ -90,8 +90,8 @@
                             size_hint_y: .1
                         CustomButtonSpecial:
                             size_hint_y: .5
-                            text: "Terminar"
-                            on_release: exit()
+                            text: "Cerrar sesion"
+                            on_release: app.login_back()
                         BoxLabel
 
                     BoxLabel

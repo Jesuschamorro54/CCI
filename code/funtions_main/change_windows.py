@@ -1,5 +1,5 @@
 from kivy.uix.screenmanager import ScreenManager, RiseInTransition
-from Proyect.code.windows.menu import Menu
+from Proyect.code.windows.menu import WindowMenu
 from Proyect.code.windows.hire_employee import *
 from Proyect.code.windows.implement_view import *
 from Proyect.code.windows.buy_implement import *
@@ -46,25 +46,27 @@ def go_buy_implement_func(root, transition):
         root.current = b_imp.name
 
 
-def go_plan_maintenance_func(root, transition, logger):
+def go_plan_maintenance_func(root, transition):
     if root.has_screen(name="plan"):
         transition.direction = 'left'
         root.current = "plan"
         print("go to plan maintenance")
     else:
-        b_imp = PlanMaintenance(name="plan", logger=logger)
+        window = PlanMaintenance(name="plan")
         print("go to plan maintenance")
-        root.add_widget(b_imp)
+        root.add_widget(window)
         transition.direction = 'left'
-        root.current = b_imp.name
+        root.current = window.name
 
-def go_menu_principal(root):
+
+def go_menu_principal_func(root, transition):
     if root.has_screen(name="menu"):
-        transition = RiseInTransition()
-        root.current = "plan"
-        print("go to plan maintenance")
+        transition.direction = 'left'
+        root.current = "menu"
+        print("go to menu principal create")
     else:
-        go_menu = Menu(name="menu")
-        print("go to plan maintenance")
+        go_menu = WindowMenu(name="menu", root=root)
+        print("go to menu principal normal")
         root.add_widget(go_menu)
-        transition = RiseInTransition()
+        transition.direction = 'left'
+        root.current = go_menu.name

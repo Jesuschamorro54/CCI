@@ -1,9 +1,12 @@
 #: import C kivy.utils.get_color_from_hex
 #: include class_kivy.kv
-#: include cci.kv
+#: include menu.kv
 
 
-<WindowLogin@Screen>:
+<WindowLogin>:
+    text_notice: text_notice
+    id_identification: id_identification
+    cargo: cargo
     FloatLayout:
         # Box containing the complete app
         BoxLayout:
@@ -85,4 +88,4 @@
                 BoxLabel:
                     size_hint_x: .3
 
-WindowLogin:
+WindowLogin

@@ -5,7 +5,7 @@ from Proyect.database_conect.functions.validate import *
 
 # noinspection PyCompatibility
 class PlanMaintenance(Screen):
-    def __init__(self, logger, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.database = DataBase("cci")
         self.container_implement = None
@@ -15,7 +15,7 @@ class PlanMaintenance(Screen):
         self.identifier = 0
         self.iterator = 0
         self.implement_id = 0
-        self.logger = logger
+        self.logger = 0
 
     # -- Press to add -- #
     def add(self, value):
