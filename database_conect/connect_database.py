@@ -117,13 +117,21 @@ class DataBase:
         self.connection.commit()
 
     # Add maintenance
-    def insert_maintenance(self,authorized, assigned, date):
-        insert_maintenance_func(self.cursor, self.connection, authorized, assigned, date)
+    def insert_maintenance(self, authorized, assigned, date, option):
+        insert_maintenance_func(self.cursor, self.connection, authorized, assigned, date, option)
         self.connection.commit()
 
         # Returned id of maintenance
         self.cursor.execute("SELECT last_insert_id()")
         ide = self.cursor.fetchone()
-        print("print id: ", ide)
         return ide[0]
+
+    # Add recent
+    def insert_recent(self, authorized, assigned, programmed, maintenance, implement, option):
+        self.connection.begin()
+        insert_recent_func(self.cursor, self.connection, authorized, assigned, programmed, maintenance, implement, option)
+        self.connection.commit()
+
+
+
 

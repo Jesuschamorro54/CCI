@@ -5,8 +5,8 @@ from Proyect.database_conect.functions.validate import *
 
 # noinspection PyCompatibility
 class PlanMaintenance(Screen):
-    def __init__(self, **kw):
-        super().__init__(**kw)
+    def __init__(self, logger, **kwargs):
+        super().__init__(**kwargs)
         self.database = DataBase("cci")
         self.container_implement = None
         self.container_services = None
@@ -15,6 +15,7 @@ class PlanMaintenance(Screen):
         self.identifier = 0
         self.iterator = 0
         self.implement_id = 0
+        self.logger = logger
 
     # -- Press to add -- #
     def add(self, value):
@@ -22,7 +23,7 @@ class PlanMaintenance(Screen):
         self.container_implement = self.database.implement(0, 1)
         long_implement = len(self.container_implement)
         if value == "":
-            return "Escriba algo"
+            return "El campo 'nombre' está vacio"
 
         #  Check that the implement entered is already in the database
         for key in range(long_implement):
@@ -38,7 +39,7 @@ class PlanMaintenance(Screen):
         self.rv.data.insert(self.iterator, {'iter.text': str(self.iterator + 1), 'name.text': value,
                                             'ide.text': str(self.implement_id)})
         self.iterator += 1
-        self.clear()
+        self.clear("details")
         return ""
 
     # -- Press to update -- #
@@ -48,7 +49,7 @@ class PlanMaintenance(Screen):
         try:
             ide = int(ide) - 1
         except:
-            self.clear()
+            self.clear("details")
             return "Numero ingresado es invalido"
 
         long_implement = len(self.container_implement)
@@ -70,17 +71,24 @@ class PlanMaintenance(Screen):
 
                 self.rv.refresh_from_data()
             except:
-                self.clear()
+                self.clear("details")
                 return "El implemento con este id no se ha agregado"
         else:
-            self.clear()
+            self.clear("details")
             return "Debe añadir implementos a la lista"
         return ""
 
     # -- Press to confirm -- #
     def confirm(self, asig, date, entity):
+        global id_employee, id_service
+
+        # check date
         if not valid_date(date):
             return "Fecha invalida"
+
+        # check fields
+        if asig == "" or entity == "" or self.rv.data == []:
+            return "Aun hay campos sin completar"
 
         if asig == "Entidad":
             self.container_services = self.database.services()
@@ -94,27 +102,35 @@ class PlanMaintenance(Screen):
                     break
                 if key == (long_services - 1) and self.container_services[key][1].lower() != entity:
                     return "El servicio no se encuentra en la base de datos"
-                else:
-                    print("Se encontró el servicio")
+
+            # Insert maintenance
+            maintenance_id = self.database.insert_maintenance(self.logger, id_service, date, option="entity")
+
+            # Insert recent
+            for i in range(self.iterator):
+                implement_id = self.rv.data[i]['ide.text']
+                self.database.insert_recent(self.logger, id_service, date, maintenance_id, implement_id, option="entity")
 
         if asig == "Empleado":
             self.container_employee = self.database.employee()
             long_employee = len(self.container_employee)
-            print(self.container_employee)
 
             #  Check that the employee entered is already in the database
             for key in range(long_employee):
-                if self.container_employee[key][1].lower() == entity:
+                if self.container_employee[key][1].lower() == entity.lower():
                     id_employee = self.container_employee[key][0]
                     break
-                if key == (long_employee - 1) and self.container_employee[key][1].lower() != entity:
+                if key == (long_employee - 1) and self.container_employee[key][1].lower() != entity.lower():
                     return "El empleado no se encuentra en la base de datos"
-                print("no se encontró")
 
-        for i in range(self.iterator):
-            print(self.rv.data[i]['ide.text'], "-", self.rv.data[i]['name.text'])
-        self.rv.data = []
-        self.clear()
+            # Insert maintenance
+            maintenance_id = self.database.insert_maintenance(self.logger, id_employee, date, option="employee")
+
+            # Insert recent
+            for i in range(self.iterator):
+                implement_id = self.rv.data[i]['ide.text']
+                self.database.insert_recent(self.logger, id_employee, date, maintenance_id, implement_id, option="employee")
+        self.clear("all")
 
         return ""
 
@@ -127,6 +143,13 @@ class PlanMaintenance(Screen):
         else:
             return ""
 
-    def clear(self):
-        self.message.text = self.nombre_add.text = ""
-        self.id_up.text = self.name_up.text = ""
+    def clear(self, option):
+        if option == "details":
+            self.message.text = self.nombre_add.text = ""
+            self.id_up.text = self.name_up.text = ""
+        else:
+            self.message.text = self.nombre_add.text = ""
+            self.id_up.text = self.entity.text = self.date.text = self.name_up.text = ""
+            self.asignado.text = "deploy"
+            self.rv.data = []
+            self.iterator = 0
