@@ -1,3 +1,5 @@
+from kivy.uix.screenmanager import ScreenManager, RiseInTransition
+from Proyect.code.windows.menu import Menu
 from Proyect.code.windows.hire_employee import *
 from Proyect.code.windows.implement_view import *
 from Proyect.code.windows.buy_implement import *
@@ -55,3 +57,14 @@ def go_plan_maintenance_func(root, transition, logger):
         root.add_widget(b_imp)
         transition.direction = 'left'
         root.current = b_imp.name
+
+def go_menu_principal(root):
+    if root.has_screen(name="menu"):
+        transition = RiseInTransition()
+        root.current = "plan"
+        print("go to plan maintenance")
+    else:
+        go_menu = Menu(name="menu")
+        print("go to plan maintenance")
+        root.add_widget(go_menu)
+        transition = RiseInTransition()
