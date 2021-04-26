@@ -1,91 +1,52 @@
 #: import C kivy.utils.get_color_from_hex
-#: include class_kivy.kv
+#: include recycling.kv
 #: include menu.kv
-
+#: include class_kivy.kv
 
 <WindowLogin>:
     text_notice: text_notice
-    id_identification: id_identification
     cargo: cargo
+    ide: ide
     FloatLayout:
         # Box containing the complete app
-        BoxLayout:
-            orientation: "vertical"
-            size_hint: 1.0, 1.0
-            pos_hint: {"x": 0.0, "y": 0.0}
-            padding: "5sp"
-            spacing: "5sp"
-
-            # --Containing LOGIN-- #
-            BoxContainer:
-                orientation: "horizontal"
-                size_hint_y: .5
-                BoxLabel:
-                    size_hint_x: .3
-                # LOGIN
-                Tittle:
-                    size_hint_y: .3
-                    text: "Login"
-                BoxLabel:
-                    size_hint_x: .3
-
-            # --Box containing all-- #
-            BoxContainer:
-                size_hint_y: .8
-                BoxLabel:
-                    size_hint_x: .5
-
-                #--Containing button and sentences--#
-                BoxContainerSentences:
-                    orientation: "vertical"
-                    BoxContainer:
-                        TextMessage:
-                            id: text_notice
-                    BoxContainer:
-                        LabelText:
-                            font_size: "18sp"
-                            size_hint: .3, .6
-                            text: "IDENTIFICATION"
-                        Tex:
-                            id: id_identification
-                            size_hint: .3 ,.55
-                            on_focus: text_notice.text = ""
-
-                    BoxContainer:
-                        LabelText:
-                            font_size: "18sp"
-                            size_hint: .3, .6
-                            text: "CARGO"
+        Background:
+            orientation: "horizontal"
+            LabelSpacing
+            ContainerBig:
+                LabelSpacing
+                ContainerVisible:
+                    size_hint_y: 2.5
+                    Image
+                        source: 'icos/user.ico'
+                        size: dp(100), dp(100)
+                    Message:
+                        id: text_notice
+                        text: ""
+                    ContainerMedium
+                        size_hint_y: .2
+                        ImageBox:
+                            size_hint_x: .1
+                            source: 'icos/user2.ico'
+                        Text:
+                            id: ide
+                            hint_text: "Identification"
+                    ContainerMedium:
+                        size_hint_y: .2
+                        ImageBox:
+                            size_hint_x: .1
+                            source: 'icos/job.ico'
                         Spinner:
                             id: cargo
                             font_size: "16sp"
-                            size_hint: .3 ,.58
-                            background_color: C("#4D4D4D")
-                            foreground_color: C("FFFFFF")
-                            text: "deploy"
-                            on_release: cargo.values = app.return_post()
-                BoxLabel:
-                    size_hint_x: .5
+                            background_color: C("1F618D")
+                            on_release: cargo.values = root.return_post()
 
-
-            # --Containing the buttons-- #
-            BoxContainer:
-                size_hint_y: .6
-                BoxLabel:
-                    size_hint_x: .3
-                BoxContainerSentences:
-                    orientation: "vertical"
-                    BoxContainer:
-                        spacing: "10sp"
-                        size_hint_y: .5
-                        CustomButton:
-                            text: "Cancel"
-                            on_release: exit()
-                        CustomButton:
-                            text: "Enter"
-                            on_release: text_notice.text = str(app.login(id_identification.text, cargo.text))
-                    BoxLabel:
-                BoxLabel:
-                    size_hint_x: .3
+                    ContainerMedium:
+                        size_hint_y: .2
+                        CustomBottomA
+                            text: "LOGIN"
+                            on_release: text_notice.text = str(root.login(ide.text, cargo.text))
+                LabelSpacing
+            LabelSpacing
 
 WindowLogin

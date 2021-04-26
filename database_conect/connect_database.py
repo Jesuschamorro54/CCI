@@ -9,7 +9,7 @@ class DataBase:
         self.connection = pymysql.connect(host='localhost', user='root', password='20023006', db=f'{self.name}')
         self.cursor = self.connection.cursor()
         self.container = None
-        print("Established Connection")
+        print(Color.CONNECTION_TEXT)
 
     # Valid login
     def valid_login(self, ide, post):
@@ -129,9 +129,19 @@ class DataBase:
     # Add recent
     def insert_recent(self, authorized, assigned, programmed, maintenance, implement, option):
         self.connection.begin()
-        insert_recent_func(self.cursor, self.connection, authorized, assigned, programmed, maintenance, implement, option)
+        insert_recent_func(self.cursor, self.connection, authorized, assigned, programmed, maintenance, implement,
+                           option)
         self.connection.commit()
 
 
-
-
+class Color:
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    RESET = '\033[39m'
+    CONNECTION_TEXT = f"{RED}[{GREEN}INFO   {RED}] {RED}[{MAGENTA}BD          {RED}]{RED} successful database connection{RESET}"
