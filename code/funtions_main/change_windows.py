@@ -63,10 +63,10 @@ def go_menu_principal_func(root, transition):
     if root.has_screen(name="menu"):
         transition.direction = 'left'
         root.current = "menu"
-        print("go to menu principal create")
+        print("go to menu principal exist")
     else:
         go_menu = WindowMenu(name="menu", root=root)
-        print("go to menu principal normal")
+        print("go to menu principal create")
         root.add_widget(go_menu)
         transition.direction = 'left'
         root.current = go_menu.name

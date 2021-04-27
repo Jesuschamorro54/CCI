@@ -16,6 +16,7 @@ class Aplicacion(App):
         self.container = None
         self.ide = 0
         self.login_var = None
+        self.logger = None
         self.root = None  # The root screen manager
 
     def build(self):
@@ -23,6 +24,7 @@ class Aplicacion(App):
         self.root = ScreenManager(transition=self.transition)
         self.root.add_widget(self.login_var)
         self.login_var.root = self.root
+        self.logger = self.login_var.logger
         return self.root
 
     def go_hire(self):
@@ -47,7 +49,12 @@ class Aplicacion(App):
         self.login_var.clear()
         self.transition.direction = 'right'
         self.root.current = 'login'
-        print("go to menu")
+        self.login_var.logger = ""
+        print("go to login")
+
+    def session(self):
+        print("ESTE ES EL LOGGER: ", self.login_var.logger)
+        return database.employee_session(self.login_var.logger)
 
 
 if __name__ == "__main__":

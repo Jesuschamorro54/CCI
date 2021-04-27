@@ -10,6 +10,7 @@ class WindowLogin(Screen):
         self.container = dict(self.database.jobs())
         self.transition = SlideTransition(duration=.35)
         self.root = None
+        self.logger = None
 
         # Employee login is validated
 
@@ -31,6 +32,7 @@ class WindowLogin(Screen):
         # Then it is validated that the position
         # corresponds to the user or that the user exists in the database
         if self.database.valid_login(ide, post_id):
+            self.logger = ide
             go_menu_principal_func(self.root, self.transition)
             return ""
         else:

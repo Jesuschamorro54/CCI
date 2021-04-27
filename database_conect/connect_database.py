@@ -22,6 +22,14 @@ class DataBase:
         self.container = self.cursor.fetchall()
         return self.container
 
+    # Returned all employee
+    def employee_session(self, ide):
+        sql = f'select nombre from empleados where id = {ide}'
+        self.cursor.execute(sql)
+        name = self.cursor.fetchone()
+        print("from connect_database Name:", name)
+        return name[0]
+
     # Returned all type_services
     def services(self):
         sql = 'select * from type_servicies'

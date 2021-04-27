@@ -1,5 +1,7 @@
 from kivy.uix.screenmanager import ScreenManager, SlideTransition, RiseInTransition
-from Proyect.code.funtions_main.change_windows import *
+
+
+from Proyect.database_conect.connect_database import *
 from kivy.uix.screenmanager import Screen
 
 
@@ -8,5 +10,3 @@ class WindowMenu(Screen):
         super().__init__(**kwargs)
         self.transition = SlideTransition(duration=.35)
         self.root = root
-
-    #  Change windows  #

@@ -1,10 +1,10 @@
 #: import C kivy.utils.get_color_from_hex
 
-#: set color_no_click C("#8B0000")
-#: set color_click C("#5A0606")
+#: set no_click C("#8B0000")
+#: set click C("#5A0606")
 
-#: set color_no_click2 C("#17202A")
-#: set color_click2 C("#1F618D")
+#: set no_click2 C("#ECF0F1")
+#: set click2 C("#3498DB")
 
 #: set invisible C("#1A4765")
 
@@ -20,6 +20,67 @@
         Rectangle:
             pos: self.pos
             size: self.size
+
+<BackgroundDark@Background>
+    orientation: "vertical"
+    padding: "5sp"
+    spacing: "5sp"
+    canvas:
+        Color:
+            rgba: C("#113C61")
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<LineWidget@BoxLayout>
+    orientation: "vertical"
+    padding: "5sp"
+    spacing: "0sp"
+    canvas:
+        Color:
+            rgba: C("#154360")
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+
+<ContainerBar@BoxLayout>
+    orientation: "horizontal"
+    padding: "5sp"
+    spacing: "5sp"
+    canvas:
+        Color:
+            rgba: C("#ECF0F1")
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint_y: .15
+
+<LabelTextBar@Label>
+    font_size: "18"
+    bold: True
+    color: C("000000")
+    canvas.before:
+        Color:
+            rgba: C("#ECF0F1")
+            #rgba: C("#A41010")
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<ImageBoxBar@BoxLayout>
+    source: None
+    canvas.before:
+        Color:
+            rgba: C("#ECF0F1")
+            #rgba: C("A41010")
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+
+    Image:
+        source: root.source
+        center: root.center
+        size: self.size
 
 # ROSADO
 <ContainerBig@BoxLayout>:
@@ -40,7 +101,7 @@
     spacing: "1sp"
     canvas:
         Color:
-            rgba: C("#113C61")
+            rgba: C("#113C61") # dentro del visible
             #rgba: C("#71FF5D")
         RoundedRectangle:
             pos: self.pos
@@ -74,17 +135,60 @@
         source: root.source
         center: root.center
         size: self.size
+
+<ContainerWidget@BoxLayout>:
+    orientation: "vertical"
+    padding: "5sp"
+    spacing: "3sp"
+    source: None
+    text: None
+    canvas:
+        Color:
+            rgba: C("#113C61")
+            #rgba: C("#A41010")
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+    ImageBox:
+        source: root.source
+        center: root.center
+        size: self.size
+
+
 # ---------------------------- Button --------------------------------- #
-<CustomBottomA@Button>:
+<CustomButtonA@Button>:
     color: C("FFFFFF")
     background_color: 0,0,0,0
     canvas.before:
         Color:
-            rgba: color_no_click if self.state == "normal" else color_click
+            rgba: no_click if self.state == "normal" else click
         RoundedRectangle:
             pos: self.pos
             size: root.size
 
+<CustomButtonB@Button>:
+    bold: True
+    color: C("000000")
+    background_color: 0,0,0,0
+    canvas.before:
+        Color:
+            rgba: no_click2 if self.state == "normal" else click2
+        RoundedRectangle:
+            pos: self.pos
+            size: root.size
+            radius: [3,]
+
+<CancelButton@Button>
+    bold: True
+    color: C("FFFFFF")
+    background_color: 0,0,0,0
+    canvas.before:
+        Color:
+            rgba: no_click if self.state == "normal" else click
+        RoundedRectangle:
+            pos: self.pos
+            size: root.size
+            radius: [3,]
 
 # ---------------------------- Label --------------------------------- #
 <LabelSpacing@Label>:
@@ -96,11 +200,28 @@
             pos: self.pos
             size: self.size
 
-<Tittle@Label>:
-    canvas:
+<LabelSpacing2@Label>:
+    size_hint_y: .4
+    font_size: "16sp"
+    color: C("FFFFFF")
+    bold: True
+    canvas.before:
         Color:
-            #rgba: C("#DFDFDF")
-            rgba: C("#ED78FF")
+            rgba: C("#113C61")
+
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+# MORADO
+<LabelTittle@Label>:
+    font_size: "40sp"
+    color: C("FFFFFF")
+    bold: True
+    canvas.before:
+        Color:
+            rgba: invisible
+            #rgba: C("#6C10A4")
         Rectangle:
             pos: self.pos
             size: self.size

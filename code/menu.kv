@@ -5,93 +5,138 @@
 #: include maintenance.kv
 
 <WindowMenu>:
+    logger_name: logger_name
     FloatLayout:
-        BoxContainer:
-            orientation: "vertical"
-
-            BoxContainerSentences:
-                size_hint_y: .2
-                BoxLabel:
-                BoxContainer:
-                    Tittle:
-                        text: "Inicio"
-                BoxLabel:
-            BoxContainerSentences:
-                orientation: "horizontal"
-                BoxLabel:
-                    size_hint_x: .1
-                BoxContainerSpecial:
+        Background
+            spacing: "0sp"
+            padding: "0sp"
+            ContainerBar:
+                LabelTextBar:
+                    size_hint_x: .7
+                    text: "IMPLEMENT CONTROL -- MENU"
+                LabelTextBar
+                    size_hint_x: 1.2
+                ContainerBar
                     orientation: "horizontal"
-                    BoxContainerSpecial:
+                    size_hint: .57, 1.
+                    spacing: "0sp"
+                    padding: "0sp"
+                    ImageBoxBar:
                         size_hint_x: .2
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                        ImageLabel:
-                            source: 'icos/maleta.ico'
-                        ImageLabel:
-                            source: 'icos/carro.ico'
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                        ImageLabel:
-                            source: 'icos/clock_b.ico'
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                        ImageLabel:
-                            source: 'icos/eye.ico'
-                        ImageLabel:
-                            source: 'icos/eye.ico'
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                    BoxContainerSpecial:
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                        CustomButtonSpecial:
-                            markup: True
-                            text: "· Contratar Empleados           "
-                            on_release: app.go_hire()
-                        CustomButtonSpecial:
-                            text: "· Comprar implementos         "
-                            on_release: app.go_buy_implement()
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                        CustomButtonSpecial:
-                            text: "· Programar mantenimientos"
-                            on_release: app.go_plan_maintenance()
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                        CustomButtonSpecial:
-                            text: "· Registro de implementos     "
-                            on_release: app.go_implement_view()
-                        CustomButtonSpecial:
-                            text: "· Lista de mantenimientos     "
-                        #------------------------------------------------
-                        BoxLabel
-                        #------------------------------------------------
-                BoxLabel:
-                    size_hint_x: 1.7
+                        source: 'icos/user.ico'
+                    LabelTextBar:
+                        id: logger_name
+                        text: str(app.session())
 
-            BoxContainerSentences:
-                orientation: "vertical"
+                CancelButton:
+                    size_hint_x: .3
+                    text: "Cerrar Sesion"
+                    on_release: app.login_back()
+            Background:
                 size_hint_y: .4
-                BoxContainer:
-                    size_hint_y: .5
+                LabelTittle
+                LabelTittle
+                    text: "¡BIENVENIDO!"
+                    size_hint_x: .3
+                LabelTittle
+# ------------------------------------------------------------------------------
+            BackgroundDark:
+                orientation: "vertical"
+                LabelSpacing2
+                BackgroundDark
                     orientation: "horizontal"
-                    BoxLabel
-                    BoxContainerSpecial:
-                        orientation: "vertical"
-                        BoxLabel:
-                            size_hint_y: .1
-                        CustomButtonSpecial:
-                            size_hint_y: .5
-                            text: "Cerrar sesion"
-                            on_release: app.login_back()
-                        BoxLabel
-
-                    BoxLabel
+                    LabelSpacing2
+                        size_hint_x: .3
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/maleta.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Contratar empleado"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_hire()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/carro.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Comprar implementos"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_buy_implement()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/clock_b.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Programar mantenimiento"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_plan_maintenance()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                        size_hint_x: .3
+# -------------------------------------------------------------------------------
+            BackgroundDark:
+                orientation: "vertical"
+                BackgroundDark
+                    orientation: "horizontal"
+                    LabelSpacing2
+                        size_hint_x: 1.3
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/eye.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Registro de implementos"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_implement_view()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/eye.ico'
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                LabelSpacing2
+                                    size_hint_x: .2
+                            LabelSpacing2
+                                size_hint_y: .1
+                    LabelSpacing2
+                        size_hint_x: 1.3
+                LabelSpacing2
