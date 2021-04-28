@@ -67,6 +67,22 @@
             pos: self.pos
             size: self.size
 
+<LabelButtonBar@Button>
+    source: None
+    bold: True
+    color: C("000000")
+    background_color: 0,0,0,0
+    canvas.before:
+        Color:
+            rgba: no_click2 if self.state == "normal" else C("#C7C7C7")
+        Ellipse:
+            pos: self.pos
+            size: root.size
+    Image:
+        source: root.source
+        center: root.center
+        size: dp(40), dp(44)
+
 <ImageBoxBar@BoxLayout>
     source: None
     canvas.before:

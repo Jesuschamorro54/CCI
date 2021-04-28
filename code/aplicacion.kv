@@ -30,6 +30,7 @@
                         Text:
                             id: ide
                             hint_text: "Identification"
+                            on_focus: text_notice.text = ""
                     ContainerMedium:
                         size_hint_y: .2
                         ImageBox:
@@ -40,6 +41,7 @@
                             font_size: "16sp"
                             background_color: C("1F618D")
                             on_release: cargo.values = root.return_post()
+                            on_release: text_notice.text = ""
 
                     ContainerMedium:
                         size_hint_y: .2

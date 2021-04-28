@@ -59,13 +59,13 @@ def go_plan_maintenance_func(root, transition):
         root.current = window.name
 
 
-def go_menu_principal_func(root, transition):
+def go_menu_principal_func(root, transition, db):
     if root.has_screen(name="menu"):
         transition.direction = 'left'
         root.current = "menu"
         print("go to menu principal exist")
     else:
-        go_menu = WindowMenu(name="menu", root=root)
+        go_menu = WindowMenu(name="menu", root=root, database= db)
         print("go to menu principal create")
         root.add_widget(go_menu)
         transition.direction = 'left'

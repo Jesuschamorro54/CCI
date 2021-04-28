@@ -9,11 +9,14 @@ class DataBase:
         self.connection = pymysql.connect(host='localhost', user='root', password='20023006', db=f'{self.name}')
         self.cursor = self.connection.cursor()
         self.container = None
+        self.logger = None
         print(Color.CONNECTION_TEXT)
 
     # Valid login
     def valid_login(self, ide, post):
-        return valid_login_func(self.cursor, ide, post)
+        if valid_login_func(self.cursor, ide, post):
+            self.logger = ide
+            return True
 
     # Returned all employee
     def employee(self):
@@ -22,12 +25,11 @@ class DataBase:
         self.container = self.cursor.fetchall()
         return self.container
 
-    # Returned all employee
+    # Returned employee
     def employee_session(self, ide):
         sql = f'select nombre from empleados where id = {ide}'
         self.cursor.execute(sql)
         name = self.cursor.fetchone()
-        print("from connect_database Name:", name)
         return name[0]
 
     # Returned all type_services

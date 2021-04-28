@@ -21,17 +21,18 @@
                     size_hint: .57, 1.
                     spacing: "0sp"
                     padding: "0sp"
-                    ImageBoxBar:
-                        size_hint_x: .2
+                    LabelButtonBar:
+                        size_hint_x: .17
                         source: 'icos/user.ico'
+                        on_release: root.ini()
                     LabelTextBar:
                         id: logger_name
-                        text: str(app.session())
 
                 CancelButton:
                     size_hint_x: .3
                     text: "Cerrar Sesion"
                     on_release: app.login_back()
+                    on_release: logger_name.text = ""
             Background:
                 size_hint_y: .4
                 LabelTittle

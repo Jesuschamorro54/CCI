@@ -1,5 +1,6 @@
 from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition, RiseInTransition
 from Proyect.code.funtions_main.change_windows import *
+from Proyect.code.windows.menu import WindowMenu
 from Proyect.database_conect.connect_database import *
 
 
@@ -10,8 +11,6 @@ class WindowLogin(Screen):
         self.container = dict(self.database.jobs())
         self.transition = SlideTransition(duration=.35)
         self.root = None
-        self.logger = None
-
         # Employee login is validated
 
     def login(self, ide, post):
@@ -32,8 +31,8 @@ class WindowLogin(Screen):
         # Then it is validated that the position
         # corresponds to the user or that the user exists in the database
         if self.database.valid_login(ide, post_id):
-            self.logger = ide
-            go_menu_principal_func(self.root, self.transition)
+            go_menu_principal_func(self.root, self.transition, self.database)
+            self.clear()
             return ""
         else:
             return "Usuario ingresado no encontrado"
@@ -48,4 +47,5 @@ class WindowLogin(Screen):
 
     def clear(self):
         self.cargo.text = ""
-        self.text_notice.text = self.ide.text = ""
+        self.text_notice.text = ""
+        self.ide.text = ""

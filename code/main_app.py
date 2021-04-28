@@ -10,21 +10,22 @@ from Proyect.database_conect.connect_database import *
 # Initial window when executing the program
 
 class Aplicacion(App):
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.transition = SlideTransition(duration=.35)
         self.container = None
         self.ide = 0
-        self.login_var = None
+        self.login_ins = None
         self.logger = None
         self.root = None  # The root screen manager
 
     def build(self):
-        self.login_var = WindowLogin(name="login")
+        self.login_ins = WindowLogin(name="login")
         self.root = ScreenManager(transition=self.transition)
-        self.root.add_widget(self.login_var)
-        self.login_var.root = self.root
-        self.logger = self.login_var.logger
+        self.root.add_widget(self.login_ins)
+        self.login_ins.root = self.root
+        self.logger = self.login_ins.ide
         return self.root
 
     def go_hire(self):
@@ -46,15 +47,10 @@ class Aplicacion(App):
         print("go to menu")
 
     def login_back(self):
-        self.login_var.clear()
         self.transition.direction = 'right'
         self.root.current = 'login'
-        self.login_var.logger = ""
+        self.login_ins.logger = ""
         print("go to login")
-
-    def session(self):
-        print("ESTE ES EL LOGGER: ", self.login_var.logger)
-        return database.employee_session(self.login_var.logger)
 
 
 if __name__ == "__main__":

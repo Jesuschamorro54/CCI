@@ -12,7 +12,7 @@ def valid_login_func(cursor, ide, post):
         else:
             return False
     except:
-        pass
+        return False
 
 
 def valid_address(address):
