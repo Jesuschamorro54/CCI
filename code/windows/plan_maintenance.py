@@ -5,9 +5,9 @@ from Proyect.database_conect.functions.validate import *
 
 # noinspection PyCompatibility
 class PlanMaintenance(Screen):
-    def __init__(self, **kwargs):
+    def __init__(self, database, **kwargs):
         super().__init__(**kwargs)
-        self.database = DataBase("cci")
+        self.database = database
         self.container_implement = None
         self.container_services = None
         self.container_employee = None
@@ -79,12 +79,18 @@ class PlanMaintenance(Screen):
         return ""
 
     # -- Press to confirm -- #
-    def confirm(self, asig, date, entity):
+    def confirm(self, asig, date, time, entity):
+        self.logger = self.database.logger
         global id_employee, id_service
 
         # check date
         if not valid_date(date):
             return "Fecha invalida"
+        if not valid_time(time):
+            return "Hora invalida"
+
+        # Concatenate date and time
+        date = date+" "+time+":00"
 
         # check fields
         if asig == "" or entity == "" or self.rv.data == []:
@@ -124,6 +130,7 @@ class PlanMaintenance(Screen):
                     return "El empleado no se encuentra en la base de datos"
 
             # Insert maintenance
+            print("Aurorized: ", self.logger)
             maintenance_id = self.database.insert_maintenance(self.logger, id_employee, date, option="employee")
 
             # Insert recent
@@ -149,7 +156,7 @@ class PlanMaintenance(Screen):
             self.id_up.text = self.name_up.text = ""
         else:
             self.message.text = self.nombre_add.text = ""
-            self.id_up.text = self.entity.text = self.date.text = self.name_up.text = ""
+            self.id_up.text = self.entity.text = self.date.text = self.time.text = self.name_up.text = ""
             self.asignado.text = "deploy"
             self.rv.data = []
             self.iterator = 0

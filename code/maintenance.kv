@@ -24,6 +24,7 @@
     nombre_add: nombre_add
     entity: entity
     date: date
+    time:time
     asignado: asignado
     id_up: id_up
     orientation:
@@ -74,18 +75,28 @@
                     id: date
                     hint_text: "YYYY-MM-DD"
                 BoxLabel
+                    size_hint_x: .4
             BoxContainer:
                 spacing: "0sp"
                 orientation: "horizontal"
                 BoxLabel
+                    size_hint_x: .4
                 LabelText:
-                    size_hint_x: .5
+                    size_hint_x: .9
                     text: "Nombre del encargado(a)"
                 Tex:
                     id: entity
                     hint_text: "write"
-                    size_hint_x: .5
                 BoxLabel
+                LabelText
+                    size_hint_x: .2
+                    text: "Hora:"
+                Tex:
+                    id: time
+                    hint_text: "HH-MM"
+                    size_hint_x: .6
+                BoxLabel
+                    size_hint_x: .4
 
         BoxContainerSpecial:
             BoxLabel
@@ -162,7 +173,7 @@
                         size_hint_y: 3.
                     CustomButton:
                         text: "Confirm"
-                        on_release: message.text =  str(root.confirm(asignado.text, date.text, entity.text))
+                        on_release: message.text =  str(root.confirm(asignado.text, date.text, time.text, entity.text))
                         on_release: id_up.text = name_up.text = nombre_add.text = ""
                         canvas.before:
                             Color:

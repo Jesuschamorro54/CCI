@@ -34,7 +34,7 @@ class DataBase:
 
     # Returned all type_services
     def services(self):
-        sql = 'select * from type_servicies'
+        sql = 'select * from servicies'
         self.cursor.execute(sql)
         self.container = self.cursor.fetchall()
         return self.container

@@ -1,3 +1,5 @@
+from datetime import  datetime
+
 def insert_address_func(cursor, address_values, connection):
     # Print to check
     print("Inserting address...", address_values)
@@ -69,9 +71,12 @@ def insert_recent_func(cursor, connection, authorized, assigned, programmed, mai
     # Print to check
     print("\nInserting recent...")
 
+    date_now = datetime.now()
+    date_now = date_now.strftime("%Y-%m-%d %H:%M:%S")
+
     # Query to run
-    sql1 = f"INSERT INTO recents (authorized, assigned, programmed, maintenance, implement)VALUES({authorized}, {assigned}, '{programmed}', {maintenance}, {implement})"
-    sql2 = f"INSERT INTO recents (authorized, entity, programmed, maintenance, implement)VALUES({authorized}, {assigned}, '{programmed}', {maintenance}, {implement}) "
+    sql1 = f"INSERT INTO recents (authorized, assigned, programmed, maintenance, implement, date)VALUES({authorized}, {assigned}, '{programmed}', {maintenance}, {implement}, '{date_now}')"
+    sql2 = f"INSERT INTO recents (authorized, entity, programmed, maintenance, implement, date)VALUES({authorized}, {assigned}, '{programmed}', {maintenance}, {implement}, '{date_now}') "
 
     if option == "employee":
         cursor.execute(sql1)

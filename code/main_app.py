@@ -25,11 +25,9 @@ class Aplicacion(App):
         self.root = ScreenManager(transition=self.transition)
         self.root.add_widget(self.login_ins)
         self.login_ins.root = self.root
-        self.logger = self.login_ins.ide
         return self.root
 
     def go_hire(self):
-        print("ir a hire")
         go_hire_func(self.root, self.transition)
 
     def go_implement_view(self):
@@ -39,18 +37,18 @@ class Aplicacion(App):
         go_buy_implement_func(self.root, self.transition)
 
     def go_plan_maintenance(self):
-        go_plan_maintenance_func(self.root, self.transition)
+        go_plan_maintenance_func(self.root, self.transition, self.login_ins.database)
 
     def go_menu(self):
         self.transition.direction = 'right'
         self.root.current = 'menu'
-        print("go to menu")
+        print(f"{Color.GREEN}[CHANGE SCREEN] --> [BACK TO MENU    ]{Color.RESET}")
 
     def login_back(self):
         self.transition.direction = 'right'
         self.root.current = 'login'
         self.login_ins.logger = ""
-        print("go to login")
+        print(f"{Color.GREEN}[CHANGE SCREEN] --> [BACK TO LOGIN   ]{Color.RESET}")
 
 
 if __name__ == "__main__":

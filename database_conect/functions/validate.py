@@ -1,6 +1,6 @@
 def valid_login_func(cursor, ide, post):
     # print to check
-    print("Validating\nid:", ide, "job:", post)
+    print(f"[VALIDATING][Login]\nid: {ide} - job: {post}")
 
     # Query to run
     sql = f"select * from empleados where id={ide} and cargo={post}"
@@ -39,7 +39,7 @@ def valid_address(address):
 
 
 def valid_insert_user(user):
-    print("\nusuario: ", user)
+    print(f"[VALIDATING][user]\nid: {user}")
 
     # validate that the data is complete
 
@@ -78,9 +78,12 @@ def valid_date(date):
 
     list_date = date.split(sep='-')
     print(list_date)
-    day = int(list_date[2])
-    year = int(list_date[0])
-    month = int(list_date[1])
+    try:
+        day = int(list_date[2])
+        year = int(list_date[0])
+        month = int(list_date[1])
+    except:
+        return False
 
     if not (1 <= day <= 31):
         print("Invalid day")
@@ -91,5 +94,26 @@ def valid_date(date):
     elif year > 2021:
         print("Invalid year")
         return False
+    return True
 
+
+def valid_time(time):
+    if time == '' or len(time) != 5:
+        print("Invalid time")
+        return False
+
+    list_date = time.split(sep=':')
+    print(list_date)
+    try:
+        hours = int(list_date[0])
+        minutes = int(list_date[1])
+    except:
+        return False
+
+    if not (0 <= hours <= 23):
+        print("Invalid hours")
+        return False
+    elif not (0 <= minutes <= 59):
+        print("Invalid minutes")
+        return False
     return True
