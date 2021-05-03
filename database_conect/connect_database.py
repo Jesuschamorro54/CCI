@@ -137,10 +137,18 @@ class DataBase:
         return ide[0]
 
     # Add recent
-    def insert_recent(self, authorized, assigned, programmed, maintenance, implement, option):
+    def insert_recent(self, authorized, maintenance, implement, option):
         self.connection.begin()
-        insert_recent_func(self.cursor, self.connection, authorized, assigned, programmed, maintenance, implement,
-                           option)
+        insert_recent_func(self.cursor, self.connection, authorized, maintenance, implement, option)
+        self.connection.commit()
+
+    # Update state of implement
+    def update_implement(self, ide, state):
+        # Print to check
+        print("\nUpdating implement...")
+        self.connection.begin()
+        sql = f"update implementos set estado = {state} where id = {ide}"
+        self.cursor.execute(sql)
         self.connection.commit()
 
 

@@ -26,13 +26,13 @@
                     orientation: "horizontal"
                     BoxLabel
                     BoxContainerSentences
-                        size_hint_x: .2
+                        size_hint_x: .1
                         orientation: "vertical"
                         CustomButton:
-                            size_hint_y: .5
+                            size_hint_y: .8
                             text: "reload"
                             on_release: root.reloading()
-                            on_release: error_text.text = passed_text.text = name.text = costo.text = cantidad.text = supplier.text = date.text = ""
+                            on_release: error_text.text = passed_text.text = name.text = costo.text = cantidad.text = supplier.text = ""
                         BoxLabel
                 GridLayout:
                     size_hint_y: .7
@@ -90,7 +90,7 @@
                     CustomButton:
                         size_hint_x: .8
                         text: "Verificar"
-                        on_release: error_text.text = str(root.validate(name.text, supplier.text, date.text, total.text))
+                        on_release: error_text.text = str(root.validate(name.text, supplier.text, total.text))
                     CustomButton:
                         id: add
                         size_hint_x: .8
@@ -110,16 +110,6 @@
                     color: C("#33BB00")
                 BoxContainer:
                     BoxLabel
-                    LabelText:
-                        size_hint_x: .7
-                        font_size: "18sp"
-                        text: "Fecha de pedido:"
-                    Tex:
-                        on_focus: add.disabled = True
-                        on_focus: passed_text.text = error_text.text = ""
-                        id: date
-                        hint_text: "YYYY-MM-DD"
-                    BoxLabel
                 BoxContainer:
                     BoxLabel
                     CustomButton:
@@ -130,7 +120,7 @@
                         id: comprar
                         text: "Comprar"
                         disabled: True
-                        on_release: passed_text.text = str(root.add_commodity(f"{cantidad.text}, {costo.text}, {total.text}, '{date.text}'"))
+                        on_release: passed_text.text = str(root.add_commodity(f"{cantidad.text}, {costo.text}, {total.text}"))
                         on_release: error_text.text = ""
                     BoxLabel
                 BoxLabel

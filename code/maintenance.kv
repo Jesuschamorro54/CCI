@@ -67,6 +67,7 @@
                     background_color: C("#4D4D4D")
                     foreground_color: C("FFFFFF")
                     values: ("Entidad", "Empleado")
+                    on_press: message.text = ""
                 BoxLabel
                 LabelText
                     size_hint_x: .2
@@ -74,6 +75,7 @@
                 Tex:
                     id: date
                     hint_text: "YYYY-MM-DD"
+                    on_focus: message.text = ""
                 BoxLabel
                     size_hint_x: .4
             BoxContainer:
@@ -87,6 +89,7 @@
                 Tex:
                     id: entity
                     hint_text: "write"
+                    on_focus: message.text = ""
                 BoxLabel
                 LabelText
                     size_hint_x: .2
@@ -95,6 +98,7 @@
                     id: time
                     hint_text: "HH-MM"
                     size_hint_x: .6
+                    on_focus: message.text = ""
                 BoxLabel
                     size_hint_x: .4
 

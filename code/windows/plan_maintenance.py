@@ -103,10 +103,10 @@ class PlanMaintenance(Screen):
 
             #  Check that the service entered is already in the database
             for key in range(long_services):
-                if self.container_services[key][1].lower() == entity:
+                if self.container_services[key][1].lower() == entity.lower():
                     id_service = self.container_services[key][0]
                     break
-                if key == (long_services - 1) and self.container_services[key][1].lower() != entity:
+                if key == (long_services - 1) and self.container_services[key][1].lower() != entity.lower():
                     return "El servicio no se encuentra en la base de datos"
 
             # Insert maintenance
@@ -115,7 +115,7 @@ class PlanMaintenance(Screen):
             # Insert recent
             for i in range(self.iterator):
                 implement_id = self.rv.data[i]['ide.text']
-                self.database.insert_recent(self.logger, id_service, date, maintenance_id, implement_id, option="entity")
+                self.database.insert_recent(self.logger, maintenance_id, implement_id, option="entity")
 
         if asig == "Empleado":
             self.container_employee = self.database.employee()
@@ -136,7 +136,7 @@ class PlanMaintenance(Screen):
             # Insert recent
             for i in range(self.iterator):
                 implement_id = self.rv.data[i]['ide.text']
-                self.database.insert_recent(self.logger, id_employee, date, maintenance_id, implement_id, option="employee")
+                self.database.insert_recent(self.logger, maintenance_id, implement_id, option="employee")
         self.clear("all")
 
         return ""

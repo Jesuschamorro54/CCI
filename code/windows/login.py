@@ -9,11 +9,13 @@ class WindowLogin(Screen):
         super().__init__(**kw)
         self.database = DataBase("cci")
         self.container = dict(self.database.jobs())
-        self.transition = SlideTransition(duration=.35)
+        self.transition = None
         self.root = None
         # Employee login is validated
 
     def login(self, ide, post):
+        ide = 203040
+        post = "Ingeniero de soporte"
         try:
             ide = int(ide)
         except:

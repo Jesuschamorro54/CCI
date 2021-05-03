@@ -3,6 +3,7 @@
 #: include implement.kv
 #: include add_implement.kv
 #: include maintenance.kv
+#: include view_maintenance.kv
 
 <WindowMenu>:
     logger_name: logger_name
@@ -112,7 +113,7 @@
                             source: 'icos/eye.ico'
                             LabelSpacing2
                                 size_hint_y: .1
-                                text: "Registro de implementos"
+                                text: "Ver implementos"
                             BackgroundDark
                                 orientation: "horizontal"
                                 size_hint_y: .3
@@ -127,6 +128,9 @@
                     LineWidget
                         ContainerWidget:
                             source: 'icos/eye.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Ver mantenimientos"
                             BackgroundDark
                                 orientation: "horizontal"
                                 size_hint_y: .3
@@ -134,6 +138,7 @@
                                     size_hint_x: .2
                                 CustomButtonB:
                                     text: "Ir"
+                                    on_release: app.go_maintenance_view()
                                 LabelSpacing2
                                     size_hint_x: .2
                             LabelSpacing2
