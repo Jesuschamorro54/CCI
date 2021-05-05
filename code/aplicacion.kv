@@ -1,0 +1,54 @@
+#: import C kivy.utils.get_color_from_hex
+#: include recycling.kv
+#: include menu.kv
+#: include class_kivy.kv
+
+<WindowLogin>:
+    text_notice: text_notice
+    cargo: cargo
+    ide: ide
+    FloatLayout:
+        # Box containing the complete app
+        Background:
+            orientation: "horizontal"
+            LabelSpacing
+            ContainerBig:
+                LabelSpacing
+                ContainerVisible:
+                    size_hint_y: 2.5
+                    Image
+                        source: 'icos/user.ico'
+                        size: dp(100), dp(100)
+                    Message:
+                        id: text_notice
+                        text: ""
+                    ContainerMedium
+                        size_hint_y: .2
+                        ImageBox:
+                            size_hint_x: .1
+                            source: 'icos/user2.ico'
+                        Text:
+                            id: ide
+                            hint_text: "Identification"
+                            on_focus: text_notice.text = ""
+                    ContainerMedium:
+                        size_hint_y: .2
+                        ImageBox:
+                            size_hint_x: .1
+                            source: 'icos/job.ico'
+                        Spinner:
+                            id: cargo
+                            font_size: "16sp"
+                            background_color: C("1F618D")
+                            on_release: cargo.values = root.return_post()
+                            on_release: text_notice.text = ""
+
+                    ContainerMedium:
+                        size_hint_y: .2
+                        CustomButtonA
+                            text: "LOGIN"
+                            on_release: text_notice.text = str(root.login(ide.text, cargo.text))
+                LabelSpacing
+            LabelSpacing
+
+WindowLogin

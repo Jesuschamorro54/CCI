@@ -1,38 +1,18 @@
 from kivy.uix.screenmanager import ScreenManager, SlideTransition, RiseInTransition
-from Proyect.code.funtions_main.change_windows import *
+
+from Proyect.database_conect.connect_database import *
 from kivy.uix.screenmanager import Screen
 
 
-class Menu(Screen):
-    def __init__(self, **kwargs):
+class WindowMenu(Screen):
+    def __init__(self, root, database, **kwargs):
         super().__init__(**kwargs)
         self.transition = SlideTransition(duration=.35)
-        self.transition_menu = RiseInTransition()
-        self.signal = None
-        self.menu = None
+        self.root = root
+        self.database = database
 
-        self.root = None  # The root screen manager
+    def ini(self):
+        ide = self.database.logger
+        print("ide desde menu:", ide)
+        self.logger_name.text = self.database.employee_session(ide)
 
-        #  Change windows  #
-
-    def go_hire(self):
-        go_hire_func(self.root, self.transition)
-
-    def go_implement_view(self):
-        go_implement_view_func(self.root, self.transition)
-
-    def go_buy_implement(self):
-        go_buy_implement_func(self.root, self.transition)
-
-    def go_plan_maintenance(self):
-        go_plan_maintenance_func(self.root, self.transition, self.logger)
-
-    def go_menu_principal(self):
-        go_menu_principal(self.root)
-
-        # Go back to menu
-
-    def go_menu(self):
-        self.transition.direction = 'right'
-        self.root.current = 'menu'
-        print("go to menu")

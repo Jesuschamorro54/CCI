@@ -3,76 +3,56 @@ __autor__ = "Jesus Chamorro"
 from kivy.app import App
 from kivy.uix.screenmanager import SlideTransition, RiseInTransition
 from Proyect.code.funtions_main.change_windows import *
-from Proyect.code.windows.login import *
+from Proyect.code.windows.login import WindowLogin
+from Proyect.database_conect.connect_database import *
 
 
 # Initial window when executing the program
 
-class Login(App):
-    def __init__(self, **kwargs):
-        super().__init__()
-        self.transition = SlideTransition(duration=.35)
-        self.transition_menu = RiseInTransition()
-        self.container = dict(database.jobs())
-        self.container = None
-        self.signal = 0
-        self.ide = 0
-        self.signal = None
-        self.login_var = None
+class Aplicacion(App):
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.transition = SlideTransition(duration=.35)
+        self.container = None
+        self.ide = 0
+        self.login_ins = None
+        self.logger = None
         self.root = None  # The root screen manager
 
     def build(self):
-        self.login_var = WindowLogin(name="login")
+        self.login_ins = WindowLogin(name="login")
         self.root = ScreenManager(transition=self.transition)
-        self.root.add_widget(self.login_var)
+        self.root.add_widget(self.login_ins)
+        self.login_ins.root = self.root
+        self.login_ins.transition = self.transition
         return self.root
 
-        # Employee login is validated
+    def go_hire(self):
+        go_hire_func(self.root, self.transition)
 
-    def login(self, ide, post):
-        try:
-            ide = int(ide)
-        except:
-            return "User id must be of type integer "
+    def go_implement_view(self):
+        go_implement_view_func(self.root, self.transition)
 
-        self.container = dict(database.jobs())
-        post_id = 0
-        if ide == "":
-            ide = "0"
+    def go_buy_implement(self):
+        go_buy_implement_func(self.root, self.transition)
 
-        # first it is known what position the user entered
-        for key in self.container:
-            if self.container[key] == post:
-                post_id = key
-            else:
-                pass
+    def go_plan_maintenance(self):
+        go_plan_maintenance_func(self.root, self.transition, self.login_ins.database)
 
-        # Then it is validated that the position
-        # corresponds to the user or that the user exists in the database
-        if database.valid_login(ide, post_id):
-            self.go_menu_principal()
-            return "OK"
-        else:
-            return "The specified user was not found"
+    def go_maintenance_view(self):
+        go_maintenance_view_func(self.root, self.transition)
 
-    # Returns in a list the names of the jobs
-    def return_post(self):
-        self.container = dict(database.jobs())
-        job_name_list = []
+    def go_menu(self):
+        self.transition.direction = 'right'  # derecha
+        self.root.current = 'menu'
+        print(f"{Color.GREEN}[CHANGE SCREEN] --> [BACK TO MENU    ]{Color.RESET}")
 
-        for key in self.container:
-            job_name_list.append(self.container[key])
-
-        return job_name_list
-
-    #  Change windows  #
-    def go_menu_principal(self):
-        go_menu_principal(self.root)
-
-
-class Loginn(App):
-    pass
+    def login_back(self):
+        self.transition.direction = 'down'
+        self.root.current = 'login'
+        self.login_ins.logger = ""
+        print(f"{Color.GREEN}[CHANGE SCREEN] --> [BACK TO LOGIN   ]{Color.RESET}")
 
 
 if __name__ == "__main__":
@@ -80,5 +60,5 @@ if __name__ == "__main__":
     database = DataBase("cci")
 
     # Instance for interface
-    login_app = Login()
+    login_app = Aplicacion()
     login_app.run()

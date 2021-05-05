@@ -13,13 +13,11 @@ class AddImplement(Screen):
         self.proveedor_id = 0
         self.implement_id = 0
 
-    def validate(self, name_implement, name_supplier, date, total):
+    def validate(self, name_implement, name_supplier, total):
         self.identifier = 0
         # Check that the entered parameters are correct
         if name_implement == "" or name_supplier == "":
             return "Hay casillas vacias"
-        elif date == "" or len(date) != 10:
-            return "La fecha es invalida"
         elif total == "$0":
             return "¡Ups! Hay algo mal en el precio"
 
@@ -31,32 +29,32 @@ class AddImplement(Screen):
 
         # Check that the implement entered is already in the database
         for key in range(long_implement):
-            if self.container_implement[key][1] == name_implement:
+            if self.container_implement[key][1].lower() == name_implement.lower():
                 print("id: ", key, "Nombre: ", self.container_implement[key][1])
                 self.implement_id = self.container_implement[key][0]
                 print("True id implement:", self.implement_id)
                 break
-            if key == (long_implement - 1) and self.container_implement[key][1] != name_implement:
+            if key == (long_implement - 1) and self.container_implement[key][1].lower() != name_implement.lower():
                 self.identifier = 1
 
         # Check that the supplier entered is already in the database
         for key in range(long_supplier):
-            if self.container_supplier[key][1] == name_supplier:
+            if self.container_supplier[key][1].lower() == name_supplier.lower():
                 print("id: ", key, "Nombre: ", self.container_supplier[key][1])
                 self.proveedor_id = self.container_supplier[key][0]
                 print("True id supplier: ", self.proveedor_id)
                 break
-            if (key == long_supplier - 1) and self.container_supplier[key][1] != name_supplier:
+            if (key == long_supplier - 1) and self.container_supplier[key][1].lower() != name_supplier.lower():
                 self.identifier = 2
 
-        if self.identifier == 1:
-            print("dentro")
-            self.activate(2)
-            return "Implemento especificado no encontrado ¿Desea agregarlo?"
         if self.identifier == 2:
             print("dentro")
             self.activate(2)
-            return "El proveedor no se encuentra en la base de datos ¿Desea agregarlo?"
+            return "Proveedor especificado no encontrado ¿Desea agregarlo?"
+        if self.identifier == 1:
+            print("dentro")
+            self.activate(2)
+            return "El implemento no se encuentra en la base de datos ¿Desea agregarlo?"
         else:
             self.activate(1)
             return "¡Verificado!"
@@ -97,7 +95,6 @@ class AddImplement(Screen):
     def reloading(self):
         self.comprar.disabled = True
         self.reload = 0
-
 
     @staticmethod
     def total(costo, cantidad):

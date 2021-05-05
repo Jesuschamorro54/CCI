@@ -9,11 +9,14 @@ class DataBase:
         self.connection = pymysql.connect(host='localhost', user='root', password='20023006', db=f'{self.name}')
         self.cursor = self.connection.cursor()
         self.container = None
-        print("Established Connection")
+        self.logger = None
+        print(Color.CONNECTION_TEXT)
 
     # Valid login
     def valid_login(self, ide, post):
-        return valid_login_func(self.cursor, ide, post)
+        if valid_login_func(self.cursor, ide, post):
+            self.logger = ide
+            return True
 
     # Returned all employee
     def employee(self):
@@ -22,9 +25,16 @@ class DataBase:
         self.container = self.cursor.fetchall()
         return self.container
 
+    # Returned employee
+    def employee_session(self, ide):
+        sql = f'select nombre from empleados where id = {ide}'
+        self.cursor.execute(sql)
+        name = self.cursor.fetchone()
+        return name[0]
+
     # Returned all type_services
     def services(self):
-        sql = 'select * from type_servicies'
+        sql = 'select * from servicies'
         self.cursor.execute(sql)
         self.container = self.cursor.fetchall()
         return self.container
@@ -127,11 +137,62 @@ class DataBase:
         return ide[0]
 
     # Add recent
-    def insert_recent(self, authorized, assigned, programmed, maintenance, implement, option):
+    def insert_recent(self, authorized, maintenance, implement, option):
         self.connection.begin()
-        insert_recent_func(self.cursor, self.connection, authorized, assigned, programmed, maintenance, implement, option)
+        insert_recent_func(self.cursor, self.connection, authorized, maintenance, implement, option)
         self.connection.commit()
 
+    # Update state of implement
+    def update_implement(self, ide, state):
+        # Print to check
+        print("\nUpdating implement...")
+        self.connection.begin()
+        sql = f"update implementos set estado = {state} where id = {ide}"
+        self.cursor.execute(sql)
+        self.connection.commit()
+
+    def maintenance(self, seeker, identifier):
+        self.connection.begin()
+        # Date
+        if identifier == 1:
+            sql = f"""
+                    SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                    INNER JOIN mantenimiento main on main.id = r.maintenance INNER JOIN empleados emp on emp.id = main.authorized
+                    LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement
+                    WHERE locate("{seeker}", main.programmed);"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        # Implement
+        elif identifier == 2:
+            sql = f"""
+                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                INNER JOIN mantenimiento main on main.id = r.maintenance INNER JOIN empleados emp on emp.id = main.authorized
+                LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement
+                WHERE locate("{seeker}", imp.nombre);"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        # Maintenance
+        elif identifier == 3:
+            sql = f"""
+                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                INNER JOIN mantenimiento main on main.id = r.maintenance AND main.id in {seeker} JOIN empleados emp on emp.id = main.authorized
+                LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement;"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
 
 
 
+class Color:
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    RESET = '\033[39m'
+    CONNECTION_TEXT = f"{RED}[{GREEN}INFO   {RED}] {RED}[{MAGENTA}BD          {RED}]{RED} successful database connection{RESET}"

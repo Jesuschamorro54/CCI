@@ -1,0 +1,148 @@
+#: import C kivy.utils.get_color_from_hex
+#: include add_employee.kv
+#: include implement.kv
+#: include add_implement.kv
+#: include maintenance.kv
+#: include view_maintenance.kv
+
+<WindowMenu>:
+    logger_name: logger_name
+    FloatLayout:
+        Background
+            spacing: "0sp"
+            padding: "0sp"
+            ContainerBar:
+                LabelTextBar:
+                    size_hint_x: .7
+                    text: "IMPLEMENT CONTROL -- MENU"
+                LabelTextBar
+                    size_hint_x: 1.2
+                ContainerBar
+                    orientation: "horizontal"
+                    size_hint: .57, 1.
+                    spacing: "0sp"
+                    padding: "0sp"
+                    LabelButtonBar:
+                        size_hint_x: .17
+                        source: 'icos/user.ico'
+                        on_release: root.ini()
+                    LabelTextBar:
+                        id: logger_name
+
+                CancelButton:
+                    size_hint_x: .3
+                    text: "Cerrar Sesion"
+                    on_release: app.login_back()
+                    on_release: logger_name.text = ""
+            Background:
+                size_hint_y: .4
+                LabelTittle
+                LabelTittle
+                    text: "¡BIENVENIDO!"
+                    size_hint_x: .3
+                LabelTittle
+# ------------------------------------------------------------------------------
+            BackgroundDark:
+                orientation: "vertical"
+                LabelSpacing2
+                BackgroundDark
+                    orientation: "horizontal"
+                    LabelSpacing2
+                        size_hint_x: .3
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/maleta.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Contratar empleado"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_hire()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/carro.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Comprar implementos"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_buy_implement()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/clock_b.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Programar mantenimiento"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_plan_maintenance()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                        size_hint_x: .3
+# -------------------------------------------------------------------------------
+            BackgroundDark:
+                orientation: "vertical"
+                BackgroundDark
+                    orientation: "horizontal"
+                    LabelSpacing2
+                        size_hint_x: 1.3
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/eye.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Ver implementos"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_implement_view()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                    LabelSpacing2
+                    LineWidget
+                        ContainerWidget:
+                            source: 'icos/eye.ico'
+                            LabelSpacing2
+                                size_hint_y: .1
+                                text: "Ver mantenimientos"
+                            BackgroundDark
+                                orientation: "horizontal"
+                                size_hint_y: .3
+                                LabelSpacing2
+                                    size_hint_x: .2
+                                CustomButtonB:
+                                    text: "Ir"
+                                    on_release: app.go_maintenance_view()
+                                LabelSpacing2
+                                    size_hint_x: .2
+                            LabelSpacing2
+                                size_hint_y: .1
+                    LabelSpacing2
+                        size_hint_x: 1.3
+                LabelSpacing2

@@ -5,9 +5,9 @@ from Proyect.database_conect.functions.validate import *
 
 # noinspection PyCompatibility
 class PlanMaintenance(Screen):
-    def __init__(self, logger, **kwargs):
+    def __init__(self, database, **kwargs):
         super().__init__(**kwargs)
-        self.database = DataBase("cci")
+        self.database = database
         self.container_implement = None
         self.container_services = None
         self.container_employee = None
@@ -15,7 +15,7 @@ class PlanMaintenance(Screen):
         self.identifier = 0
         self.iterator = 0
         self.implement_id = 0
-        self.logger = logger
+        self.logger = 0
 
     # -- Press to add -- #
     def add(self, value):
@@ -79,12 +79,18 @@ class PlanMaintenance(Screen):
         return ""
 
     # -- Press to confirm -- #
-    def confirm(self, asig, date, entity):
+    def confirm(self, asig, date, time, entity):
+        self.logger = self.database.logger
         global id_employee, id_service
 
         # check date
         if not valid_date(date):
             return "Fecha invalida"
+        if not valid_time(time):
+            return "Hora invalida"
+
+        # Concatenate date and time
+        date = date+" "+time+":00"
 
         # check fields
         if asig == "" or entity == "" or self.rv.data == []:
@@ -97,10 +103,10 @@ class PlanMaintenance(Screen):
 
             #  Check that the service entered is already in the database
             for key in range(long_services):
-                if self.container_services[key][1].lower() == entity:
+                if self.container_services[key][1].lower() == entity.lower():
                     id_service = self.container_services[key][0]
                     break
-                if key == (long_services - 1) and self.container_services[key][1].lower() != entity:
+                if key == (long_services - 1) and self.container_services[key][1].lower() != entity.lower():
                     return "El servicio no se encuentra en la base de datos"
 
             # Insert maintenance
@@ -109,7 +115,7 @@ class PlanMaintenance(Screen):
             # Insert recent
             for i in range(self.iterator):
                 implement_id = self.rv.data[i]['ide.text']
-                self.database.insert_recent(self.logger, id_service, date, maintenance_id, implement_id, option="entity")
+                self.database.insert_recent(self.logger, maintenance_id, implement_id, option="entity")
 
         if asig == "Empleado":
             self.container_employee = self.database.employee()
@@ -124,12 +130,13 @@ class PlanMaintenance(Screen):
                     return "El empleado no se encuentra en la base de datos"
 
             # Insert maintenance
+            print("Aurorized: ", self.logger)
             maintenance_id = self.database.insert_maintenance(self.logger, id_employee, date, option="employee")
 
             # Insert recent
             for i in range(self.iterator):
                 implement_id = self.rv.data[i]['ide.text']
-                self.database.insert_recent(self.logger, id_employee, date, maintenance_id, implement_id, option="employee")
+                self.database.insert_recent(self.logger, maintenance_id, implement_id, option="employee")
         self.clear("all")
 
         return ""
@@ -149,7 +156,7 @@ class PlanMaintenance(Screen):
             self.id_up.text = self.name_up.text = ""
         else:
             self.message.text = self.nombre_add.text = ""
-            self.id_up.text = self.entity.text = self.date.text = self.name_up.text = ""
+            self.id_up.text = self.entity.text = self.date.text = self.time.text = self.name_up.text = ""
             self.asignado.text = "deploy"
             self.rv.data = []
             self.iterator = 0
