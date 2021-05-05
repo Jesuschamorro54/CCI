@@ -151,6 +151,39 @@ class DataBase:
         self.cursor.execute(sql)
         self.connection.commit()
 
+    def maintenance(self, seeker, identifier):
+        self.connection.begin()
+        # Date
+        if identifier == 1:
+            sql = f"""
+                    SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                    INNER JOIN mantenimiento main on main.id = r.maintenance INNER JOIN empleados emp on emp.id = main.authorized
+                    LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement
+                    WHERE locate("{seeker}", main.programmed);"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        # Implement
+        elif identifier == 2:
+            sql = f"""
+                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                INNER JOIN mantenimiento main on main.id = r.maintenance INNER JOIN empleados emp on emp.id = main.authorized
+                LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement
+                WHERE locate("{seeker}", imp.nombre);"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        # Maintenance
+        elif identifier == 3:
+            sql = f"""
+                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                INNER JOIN mantenimiento main on main.id = r.maintenance AND main.id in {seeker} JOIN empleados emp on emp.id = main.authorized
+                LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement;"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+
+
 
 class Color:
     BLACK = '\033[30m'

@@ -13,22 +13,25 @@
         size_hint_x: .2
         id: ide
     LabelDateLong:
-        id: name
+        id: authorized
     LabelDate:
-        id: area
+        id: entity
     LabelDate:
-        id: prov
+        id: assigned
     LabelDate:
+        id: id_maint
         size_hint_x: .35
-        id: estado
     LabelDateLong:
-        id: description
-
+        id: implement
+    LabelDate
+        id: date
+        size_hint_x: .5
+    LabelDate
+        id: programmed
+        size_hint_x: .5
 
 <MaintenanceView>:
     rv: rv
-    change_state: change_state
-    change_id: change_id
     BoxContainer:
         padding: "5sp"
         orientation: 'vertical'
@@ -47,7 +50,7 @@
                 size_hint_x: .65
             Tittle:
                 size_hint_y: .7
-                text: "REGISTRO DE IMPLEMENTOS"
+                text: "REGISTRO DE MANTENIMIENTOS"
             BoxLabel:
                 size_hint_x: 1.
         BoxContainerSentences:
@@ -89,54 +92,41 @@
                     text: "Area"
                     on_release: message.text = str(root.search(seeker.text, 3))
                 BoxLabel
-            BoxContainer:
-                BoxLabel
-                TextInput:
-                    id: change_id
-                    size_hint_x: .1
-                    hint_text: 'ID'
-                    multiline: False
-                    padding: dp(5), dp(5), dp(5), dp(5)
-                    on_focus: message.text = ''
-                TextInput:
-                    id: change_state
-                    size_hint_x: .1
-                    hint_text: 'state'
-                    multiline: False
-                    padding: dp(5), dp(5), dp(5), dp(5)
-                    on_focus: message.text = ''
-                CustomButton2:
-                    size_hint_x: 0.3
-                    text: 'Update'
-                    on_release: message.text = str(root.update_state(change_id.text, change_state.text))
-                BoxLabel
+            BoxLabel
             TextMessage:
                 size_hint: 1., .6
                 id: message
         GridLayout:
-            cols: 6
+            cols: 8
             size_hint_y: None
             height: dp(20)
             spacing: "2sp"
             ButtonColumn:
                 size_hint_x: .2
-                text: "id"
-                on_release: root.sort(self.text)
+                text: "ID"
+                on_release:
             ButtonColumn:
-                text: "Nombre"
-                on_release: root.sort(self.text)
+                text: "Autoriza"
+                on_release:
             ButtonColumn:
-                text: "Area"
-                on_release: root.sort(self.text)
+                text: "Entidad"
+                on_release:
             ButtonColumn:
-                text: "Proveedor"
-                on_release: root.sort(self.text)
+                text: "Asignado"
+                on_release:
             ButtonColumn:
                 size_hint_x: .35
-                text: "Estado"
-                on_release: root.sort(self.text)
+                text: "ID MANT"
+                on_release:
             ButtonColumn:
-                text: "Descripticion"
+                text: "Implemento"
+            ButtonColumn:
+                size_hint_x: .5
+                text: "Solicitud"
+                on_release:
+            ButtonColumn:
+                size_hint_x: .5
+                text: "Programado"
 
         RecycleView:
             id: rv
