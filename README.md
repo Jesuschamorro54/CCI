@@ -1,12 +1,12 @@
-# Company records applications with python and kivy
+# Company records app with python-kivy
+This project consists of an application to maintain the records of 
+the implements of a company connected to a relational database It 
+is a project of an educational master type
 
-Este proyecto consta de una aplicación para mantener los registros de los implementos de una empresa
+# Install kivy
+###### Undefined
 
-Este proyecto consta de una aplicación para mantener los registros de los implementos de una empresa conectado a una base de datos relacional
-Es un proyecto de tipo educacional
+# How does it work?
+You need to run the file ``main_app.py`` to run.
 
-# Install Kivy
-...
-
-# Run app
-Enter the main_app file and run
+The project runs connecting to a local database named `cci`.
