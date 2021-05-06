@@ -53,7 +53,7 @@ class ImplementView(Screen):
             self.container_implement = ""
             aux = 0
             for key in self.container_area:
-                if self.container_area[key] == seeker:
+                if self.container_area[key].lower() == seeker.lower():
                     self.container_implement = (self.database.implement(key, 4))
                     self.show()
                     aux = 1
@@ -76,7 +76,6 @@ class ImplementView(Screen):
         elif identifier == "Proveedor":
             self.rv.data = sorted(self.rv.data, key=lambda x: x['prov.text'])
 
-
     # When is press the button update
     def update_state(self, ide, state):
         if ide != "" and state != "":
@@ -95,7 +94,7 @@ class ImplementView(Screen):
                     self.show_all_record()
                     self.change_state.text = self.change_id.text = ""
                     return ""
-                if self.container_implement[row][0] != ide and row == long-1:
+                if self.container_implement[row][0] != ide and row == long - 1:
                     return "El implemento no se encuentra en la base de datos"
         else:
             return ""

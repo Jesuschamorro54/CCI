@@ -1,7 +1,7 @@
 __autor__ = "Jesus Chamorro"
 
 from kivy.app import App
-from kivy.uix.screenmanager import SlideTransition, RiseInTransition
+# from kivy.uix.screenmanager import SlideTransition
 from Proyect.code.funtions_main.change_windows import *
 from Proyect.code.windows.login import WindowLogin
 from Proyect.database_conect.connect_database import *
@@ -21,6 +21,7 @@ class Aplicacion(App):
         self.root = None  # The root screen manager
 
     def build(self):
+        self.icon = "icos/app_icon.ico"
         self.login_ins = WindowLogin(name="login")
         self.root = ScreenManager(transition=self.transition)
         self.root.add_widget(self.login_ins)

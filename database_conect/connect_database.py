@@ -43,7 +43,10 @@ class DataBase:
     def implement(self, seeker, identifier):
         self.connection.begin()
         if identifier == 1:
-            sql = "select * from implementos"
+            sql = """
+                SELECT imp.id, imp.nombre, imp.belonging, prov.nombre, imp.estado, imp.descriptions 
+                FROM implementos imp, proveedores prov
+                WHERE prov.id = imp.proveedor"""
             self.cursor.execute(sql)
             self.container = self.cursor.fetchall()
             return self.container
@@ -162,6 +165,7 @@ class DataBase:
                     WHERE locate("{seeker}", main.programmed);"""
             self.cursor.execute(sql)
             self.container = self.cursor.fetchall()
+            print("Returned data...", self.container)
             return self.container
         # Implement
         elif identifier == 2:
@@ -177,7 +181,15 @@ class DataBase:
         elif identifier == 3:
             sql = f"""
                 SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
-                INNER JOIN mantenimiento main on main.id = r.maintenance AND main.id in {seeker} JOIN empleados emp on emp.id = main.authorized
+                INNER JOIN mantenimiento main on main.id = r.maintenance AND main.id in ({seeker}) JOIN empleados emp on emp.id = main.authorized
+                LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement;"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        elif identifier == 4:
+            sql = f"""
+                SELECT r.id, emp.nombre, serv.nombre, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                INNER JOIN mantenimiento main on main.id = r.maintenance JOIN empleados emp on emp.id = main.authorized
                 LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement;"""
             self.cursor.execute(sql)
             self.container = self.cursor.fetchall()

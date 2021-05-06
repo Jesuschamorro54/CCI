@@ -66,7 +66,7 @@ def go_maintenance_view_func(root, transition):
     if root.has_screen(name="view_maintenance"):
         print(f"{Color.GREEN}[CHANGE SCREEN] --> [MAINTENANCE VIEW]{Color.RESET}")
         transition.direction = 'left'
-        root.current = "plan"
+        root.current = "view_maintenance"
     else:
         print(f"{Color.GREEN}[CHANGE SCREEN] --> [MAINTENANCE VIEW]{Color.RESET}")
         window = MaintenanceView(name="view_maintenance")
