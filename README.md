@@ -1,4 +1,4 @@
-# Company-records-applications-with-python-and-kivy
+# Company records app with python-kivy
 This project consists of an application to maintain the records of 
 the implements of a company connected to a relational database It 
 is a project of an educational master type
