@@ -35,7 +35,9 @@ class HireEmployee(Screen):
         print("\nUsuario sin validar: ", users)  # str
         print("print address validada: ", address)
         user = users.split(',')
-        print(user[1])
+
+        if not valid_date(user[4]):
+            return "Fecha invalida"
 
         if address == 1:
             return "The address is incorrect"

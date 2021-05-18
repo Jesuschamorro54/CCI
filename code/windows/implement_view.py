@@ -78,6 +78,7 @@ class ImplementView(Screen):
 
     # When is press the button update
     def update_state(self, ide, state):
+        if not self.rv.data: return "No hay datos en la pantalla"
         if ide != "" and state != "":
             try:
                 ide = int(ide)

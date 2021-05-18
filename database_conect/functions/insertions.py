@@ -72,7 +72,7 @@ def insert_maintenance_func(cursor, connection, authorized, assigned, date, opti
     connection.commit()
 
 
-def insert_recent_func(cursor, connection, authorized, maintenance, implement, option):
+def insert_recent_func(cursor, connection, maintenance, implement, assigned, option):
     # Print to check
     print("\nInserting recent...")
 
@@ -80,9 +80,8 @@ def insert_recent_func(cursor, connection, authorized, maintenance, implement, o
     date_now = date_now.strftime("%Y-%m-%d %H:%M:%S")
 
     # Query to run
-    sql1 = f"INSERT INTO recents (authorized, maintenance, implement, date)VALUES({authorized}, {maintenance}, {implement}, '{date_now}')"
-    sql2 = f"INSERT INTO recents (authorized, maintenance, implement, date)VALUES({authorized}, {maintenance}, {implement}, '{date_now}') "
-
+    sql1 = f"INSERT INTO recents (maintenance, implement, date, assigned)VALUES({maintenance}, {implement}, '{date_now}', {assigned})"
+    sql2 = f"INSERT INTO recents (maintenance, implement, date)VALUES({maintenance}, {implement}, '{date_now}')"
     if option == "employee":
         cursor.execute(sql1)
     else:

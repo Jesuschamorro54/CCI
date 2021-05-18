@@ -15,10 +15,12 @@ class PlanMaintenance(Screen):
         self.identifier = 0
         self.iterator = 0
         self.implement_id = 0
+        self.content_ids = []
         self.logger = 0
 
     # -- Press to add -- #
     def add(self, value):
+        self.content_ids.append(self.implement_id)
         self.identifier = 0
         self.container_implement = self.database.implement(0, 1)
         long_implement = len(self.container_implement)
@@ -28,14 +30,16 @@ class PlanMaintenance(Screen):
         #  Check that the implement entered is already in the database
         for key in range(long_implement):
             if self.container_implement[key][1].lower() == value.lower():
-                print("id: ", key, "Nombre: ", self.container_implement[key][1])
                 self.implement_id = self.container_implement[key][0]
                 self.container_implement_add[self.implement_id] = self.container_implement[key][1]
                 break
             if key == (long_implement - 1) and self.container_implement[key][1] != value:
                 return "El implemento no se encuentra en la base de datos"
 
-        print("add...")
+        # check that the implement is added to the list
+        if self.implement_id in self.content_ids: return "Ya se agregó ese implemento"
+
+        print("add...\n")
         self.rv.data.insert(self.iterator, {'iter.text': str(self.iterator + 1), 'name.text': value,
                                             'ide.text': str(self.implement_id)})
         self.iterator += 1
@@ -90,10 +94,10 @@ class PlanMaintenance(Screen):
             return "Hora invalida"
 
         # Concatenate date and time
-        date = date+" "+time+":00"
+        date = date + " " + time + ":00"
 
         # check fields
-        if asig == "" or entity == "" or self.rv.data == []:
+        if asig == "" or asig == "deploy" or entity == "" or self.rv.data == []:
             return "Aun hay campos sin completar"
 
         if asig == "Entidad":
@@ -115,7 +119,7 @@ class PlanMaintenance(Screen):
             # Insert recent
             for i in range(self.iterator):
                 implement_id = self.rv.data[i]['ide.text']
-                self.database.insert_recent(self.logger, maintenance_id, implement_id, option="entity")
+                self.database.insert_recent(maintenance_id, implement_id, assigned=id_service, option="entity")
 
         if asig == "Empleado":
             self.container_employee = self.database.employee()
@@ -123,7 +127,7 @@ class PlanMaintenance(Screen):
 
             #  Check that the employee entered is already in the database
             for key in range(long_employee):
-                if self.container_employee[key][1].lower() == entity.lower():
+                if entity.lower() in self.container_employee[key][1].lower():
                     id_employee = self.container_employee[key][0]
                     break
                 if key == (long_employee - 1) and self.container_employee[key][1].lower() != entity.lower():
@@ -136,7 +140,7 @@ class PlanMaintenance(Screen):
             # Insert recent
             for i in range(self.iterator):
                 implement_id = self.rv.data[i]['ide.text']
-                self.database.insert_recent(self.logger, maintenance_id, implement_id, option="employee")
+                self.database.insert_recent(maintenance_id, implement_id, assigned=id_employee, option="employee")
         self.clear("all")
 
         return ""

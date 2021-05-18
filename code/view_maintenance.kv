@@ -15,6 +15,7 @@
         id: authorized
     LabelDate:
         id: entity
+        size_hint_x: .78
     LabelDate:
         id: assigned
     LabelDate:
@@ -22,18 +23,22 @@
         size_hint_x: .35
     LabelDateLong:
         id: implement
+        size_hint_x: .75
     LabelDate
         id: date
         size_hint_x: .75
     LabelDate
         id: programmed
         size_hint_x: .75
+    LabelDate
+        id: state_main
+        size_hint_x: .19
 
 <MaintenanceView>:
     rv: rv
     seeker: seeker
     BoxContainer:
-        padding: "5sp"
+        padding: "10sp"
         orientation: 'vertical'
         BoxContainer:
             size_hint_y: .1
@@ -97,7 +102,7 @@
                 size_hint: 1., .6
                 id: message
         GridLayout:
-            cols: 8
+            cols: 9
             size_hint_y: None
             height: dp(20)
             spacing: "2sp"
@@ -110,6 +115,7 @@
                 on_release: root.sort(self.text)
             ButtonColumn:
                 text: "Entidad"
+                size_hint_x: .8
                 on_release: root.sort(self.text)
             ButtonColumn:
                 text: "Asignado"
@@ -120,6 +126,7 @@
                 on_release: root.sort(self.text)
             ButtonColumn:
                 text: "Implemento"
+                size_hint_x: .75
             ButtonColumn:
                 size_hint_x: .76
                 text: "Solicitud"
@@ -127,6 +134,10 @@
             ButtonColumn:
                 size_hint_x: .76
                 text: "Programado"
+                on_release: root.sort(self.text)
+            ButtonColumn:
+                size_hint_x: .2
+                text: "State"
                 on_release: root.sort(self.text)
 
         RecycleView:

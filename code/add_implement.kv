@@ -12,9 +12,22 @@
                 size_hint_y: .3
                 orientation: "vertical"
                 BoxContainer:
+                    size_hint_y: .5
+                    BoxLabel:
+                        size_hint_x: .1
+                    ImageButton:
+                        size_hint_x: .1
+                        source: 'icos/arrow_back.ico'
+                        size_hint: .1, .7
+                        on_release: app.go_menu()
+                        on_release: passed_text.text = error_text.text = ""
+                    BoxLabel:
+                        size_hint_x: .65
                     Tittle:
-                        size_hint_y: 1.
-                        text: "Comprar Implementos"
+                        size_hint_y: .7
+                        text: "AÑADIR IMPLEMENTOS"
+                    BoxLabel:
+                        size_hint_x: 1.
                 BoxContainer:
                     size_hint_y: .4
                     TextMessage:
@@ -114,11 +127,10 @@
                     BoxLabel
                     CustomButton:
                         text: "Cancelar"
-                        on_release: app.go_menu()
                         on_release: passed_text.text = error_text.text = ""
                     CustomButton:
                         id: comprar
-                        text: "Comprar"
+                        text: "Registrar"
                         disabled: True
                         on_release: passed_text.text = str(root.add_commodity(f"{cantidad.text}, {costo.text}, {total.text}"))
                         on_release: error_text.text = ""

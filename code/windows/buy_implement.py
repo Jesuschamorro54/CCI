@@ -9,7 +9,8 @@ class AddImplement(Screen):
         self.database = DataBase("cci")
         self.container_implement = None
         self.container_supplier = None
-        self.identifier = 0
+        self.exist_s = True
+        self.exist_i = True
         self.proveedor_id = 0
         self.implement_id = 0
 
@@ -35,7 +36,7 @@ class AddImplement(Screen):
                 print("True id implement:", self.implement_id)
                 break
             if key == (long_implement - 1) and self.container_implement[key][1].lower() != name_implement.lower():
-                self.identifier = 1
+                self.exist_i = False
 
         # Check that the supplier entered is already in the database
         for key in range(long_supplier):
@@ -45,41 +46,61 @@ class AddImplement(Screen):
                 print("True id supplier: ", self.proveedor_id)
                 break
             if (key == long_supplier - 1) and self.container_supplier[key][1].lower() != name_supplier.lower():
-                self.identifier = 2
+                self.exist_s = False
 
-        if self.identifier == 2:
-            print("dentro")
+        if not self.exist_s and not self.exist_i:
+            self.activate(2)
+            return "El Proveedor e implemento especificado no se ha encontrado ¿Desea agregarlos?"
+
+        elif not self.exist_s:
             self.activate(2)
             return "Proveedor especificado no encontrado ¿Desea agregarlo?"
-        if self.identifier == 1:
-            print("dentro")
+
+        elif not self.exist_i:
             self.activate(2)
             return "El implemento no se encuentra en la base de datos ¿Desea agregarlo?"
         else:
             self.activate(1)
             return "¡Verificado!"
 
-        # Create a record of the purchase made
-
+    # Create a record of the purchase made
     def add_commodity(self, commodity):
         if self.reload == 1:
             return "Por favor recargue la ventana"
         commodity = commodity.replace('$', '')
         print(commodity)
-        self.database.insert_commodity(self.implement_id, self.proveedor_id, commodity)
+        ms = self.database.insert_commodity(self.implement_id, self.proveedor_id, commodity)
         self.reload = 1
-        return "Se registró la compra con exito"
+        return f"Se registró el pedido: {ms} con exito"
 
     def add_new(self, implement, supplier):
-        if self.identifier == 1:
+        if not self.exist_s and not self.exist_i:
+            print("Supplier enviado: ", supplier)
+            self.database.insert_supplier(supplier)
+            self.database.cursor.execute("SELECT last_insert_id()")
+            ide = self.database.cursor.fetchone()
+            self.proveedor_id = ide[0]
+
             print("implemento enviado: ", implement)
             self.database.insert_implement(implement, self.proveedor_id)
-            print(implement)
+
+            self.deactivate()
+            self.exist_i = True
+            self.exist_s = True
+            return "Se ha agregado con exito"
+
+        elif not self.exist_i:
+            print("implemento enviado: ", implement)
+            self.database.insert_implement(implement, self.proveedor_id)
+            self.deactivate()
+            self.exist_i = True
             return "Implemento agregado"
 
-        if self.identifier == 2:
+        elif not self.exist_s:
             print(supplier)
             self.database.insert_supplier(supplier)
+            self.deactivate()
+            self.exist_s = True
             return "El nuevo proveedor se añadió con exito"
 
     def activate(self, i):
@@ -89,7 +110,6 @@ class AddImplement(Screen):
             self.add.disabled = False
 
     def deactivate(self):
-        print("se ejecuto")
         self.add.disabled = True
 
     def reloading(self):

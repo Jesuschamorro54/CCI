@@ -21,7 +21,8 @@ class MaintenanceView(Screen):
                 'id_maint.text': str(self.data[row][4]),
                 'implement.text': str(self.data[row][5]),
                 'date.text': str(self.data[row][6]),
-                'programmed.text': str(self.data[row][7])
+                'programmed.text': str(self.data[row][7]),
+                'state_main.text': str(self.data[row][8])
 
             } for row in range(len(self.data))  # Edit
         ]
