@@ -10,12 +10,28 @@
                 orientation: "horizontal"
                 size_hint_y: .3
                 BoxLabel:
-                    size_hint_x: .4
-                # LOGIN
+                    size_hint_x: .1
                 BoxContainerSentences:
+                    size_hint_x: .1
+                    BoxLabel:
+                        size_hint_x: .1
+                    ImageButton:
+                        source: 'icos/arrow_back.ico'
+                        size_hint: .4, .7
+                        on_release: app.go_menu()
+                        on_release: date_init.text = name.text = cargo.text = cellphone.text = av.text = kra.text = dg.text = tr.text = number.text = district.text = ""
+                    BoxLabel:
+                        size_hint_x: .1
+                BoxLabel:
+                    size_hint_x: .3
+                BoxContainerSentences:
+                    BoxLabel:
+                        size_hint_x: .3
                     Tittle:
                         size_hint_y: .7
-                        text: "Contratar Nuevo Empleado"
+                        text: "CONTRATAR EMPLEADOS"
+                    BoxLabel:
+                        size_hint_x: .5
                 BoxContainerSentences:
                     size_hint_x: .2
                     BoxLabel:
@@ -25,7 +41,7 @@
                         source: 'icos/reload.ico'
                         on_release: root.reload()
                         on_release: text_notice.text = name.text = cellphone.text = ''
-                        on_release: av.text = kra.text = dg.text = tr.text = number.text = district.text = "null"
+                        on_release: av.text = kra.text = dg.text = tr.text = number.text = district.text = ""
                         on_release: cargo.text = "deploy"
                         Image:
                             size_hint_x: .4
@@ -172,7 +188,7 @@
                         spacing: "20sp"
                         CustomButton:
                             text: "Cancelar"
-                            on_release: app.go_menu()
+                            on_release: date_init.text = name.text = cargo.text = cellphone.text = av.text = kra.text = dg.text = tr.text = number.text = district.text = ""
                         CustomButton:
                             id: add
                             text: "Añadir"

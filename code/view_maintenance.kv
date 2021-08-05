@@ -1,6 +1,5 @@
 #: import C kivy.utils.get_color_from_hex
 <ViewM@RecycleKVIDsDataViewBehavior+BoxLayout>:
-    estado: estado
     canvas.before:
         Color:
             rgba: C("#737373")
@@ -16,6 +15,7 @@
         id: authorized
     LabelDate:
         id: entity
+        size_hint_x: .78
     LabelDate:
         id: assigned
     LabelDate:
@@ -23,17 +23,22 @@
         size_hint_x: .35
     LabelDateLong:
         id: implement
+        size_hint_x: .75
     LabelDate
         id: date
-        size_hint_x: .5
+        size_hint_x: .75
     LabelDate
         id: programmed
-        size_hint_x: .5
+        size_hint_x: .75
+    LabelDate
+        id: state_main
+        size_hint_x: .19
 
 <MaintenanceView>:
     rv: rv
+    seeker: seeker
     BoxContainer:
-        padding: "5sp"
+        padding: "10sp"
         orientation: 'vertical'
         BoxContainer:
             size_hint_y: .1
@@ -61,7 +66,7 @@
                     size_hint_x: .4
                 CustomButton2:
                     text: 'Ver todos'
-                    on_release: message.text = root.show_all_record()
+                    on_release: message.text = root.show_all()
                     on_press: seeker.text = ""
                 CustomButton2:
                     text: 'Limpiar pantalla'
@@ -81,52 +86,59 @@
                     on_focus: message.text = ''
                 CustomButton2:
                     size_hint_x: 0.5
-                    text: 'ID'
-                    on_release: message.text = str(root.search(seeker.text, 1))
+                    text: 'Date'
+                    on_release: message.text = str(root.search(self.text, seeker.text))
                 CustomButton2:
                     size_hint_x: 0.5
-                    text: 'Estado'
-                    on_release: message.text = str(root.search(seeker.text, 2))
+                    text: 'Implement'
+                    on_release: message.text = str(root.search(self.text, seeker.text))
                 CustomButton2:
                     size_hint_x: 0.5
-                    text: "Area"
-                    on_release: message.text = str(root.search(seeker.text, 3))
+                    text: "Maintenance"
+                    on_release: message.text = str(root.search(self.text, seeker.text))
                 BoxLabel
             BoxLabel
             TextMessage:
                 size_hint: 1., .6
                 id: message
         GridLayout:
-            cols: 8
+            cols: 9
             size_hint_y: None
             height: dp(20)
             spacing: "2sp"
             ButtonColumn:
                 size_hint_x: .2
                 text: "ID"
-                on_release:
+                on_release: root.sort(self.text)
             ButtonColumn:
                 text: "Autoriza"
-                on_release:
+                on_release: root.sort(self.text)
             ButtonColumn:
                 text: "Entidad"
-                on_release:
+                size_hint_x: .8
+                on_release: root.sort(self.text)
             ButtonColumn:
                 text: "Asignado"
-                on_release:
+                on_release: root.sort(self.text)
             ButtonColumn:
                 size_hint_x: .35
                 text: "ID MANT"
-                on_release:
+                on_release: root.sort(self.text)
             ButtonColumn:
                 text: "Implemento"
+                size_hint_x: .75
             ButtonColumn:
-                size_hint_x: .5
+                size_hint_x: .76
                 text: "Solicitud"
-                on_release:
+                on_release: root.sort(self.text)
             ButtonColumn:
-                size_hint_x: .5
+                size_hint_x: .76
                 text: "Programado"
+                on_release: root.sort(self.text)
+            ButtonColumn:
+                size_hint_x: .2
+                text: "State"
+                on_release: root.sort(self.text)
 
         RecycleView:
             id: rv
@@ -140,3 +152,5 @@
                 height: self.minimum_height
                 orientation: 'vertical'
                 spacing: dp(2)
+        BoxLabel
+            size_hint_y: .01

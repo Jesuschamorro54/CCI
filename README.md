@@ -10,3 +10,4 @@ is a project of an educational master type
 You need to run the file ``main_app.py`` to run.
 
 The project runs connecting to a local database named `cci`.
+

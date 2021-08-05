@@ -1,6 +1,4 @@
-from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition, RiseInTransition
 from Proyect.code.funtions_main.change_windows import *
-from Proyect.code.windows.menu import WindowMenu
 from Proyect.database_conect.connect_database import *
 
 
@@ -14,8 +12,6 @@ class WindowLogin(Screen):
         # Employee login is validated
 
     def login(self, ide, post):
-        ide = 203040
-        post = "Ingeniero de soporte"
         try:
             ide = int(ide)
         except:

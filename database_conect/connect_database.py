@@ -32,8 +32,9 @@ class DataBase:
         name = self.cursor.fetchone()
         return name[0]
 
-    # Returned all type_services
+    # Returned all services
     def services(self):
+        self.connection.begin()
         sql = 'select * from servicies'
         self.cursor.execute(sql)
         self.container = self.cursor.fetchall()
@@ -43,7 +44,10 @@ class DataBase:
     def implement(self, seeker, identifier):
         self.connection.begin()
         if identifier == 1:
-            sql = "select * from implementos"
+            sql = """
+                SELECT imp.id, imp.nombre, imp.belonging, prov.nombre, imp.estado, imp.descriptions 
+                FROM implementos imp, proveedores prov
+                WHERE prov.id = imp.proveedor"""
             self.cursor.execute(sql)
             self.container = self.cursor.fetchall()
             return self.container
@@ -126,6 +130,10 @@ class DataBase:
         insert_commodity_func(self.cursor, implement_id, supplier_id, commodity, self.connection)
         self.connection.commit()
 
+        self.cursor.execute("SELECT last_insert_id()")
+        ide = self.cursor.fetchone()
+        return ide[0]
+
     # Add maintenance
     def insert_maintenance(self, authorized, assigned, date, option):
         insert_maintenance_func(self.cursor, self.connection, authorized, assigned, date, option)
@@ -137,9 +145,9 @@ class DataBase:
         return ide[0]
 
     # Add recent
-    def insert_recent(self, authorized, maintenance, implement, option):
+    def insert_recent(self, maintenance, implement, assigned, option):
         self.connection.begin()
-        insert_recent_func(self.cursor, self.connection, authorized, maintenance, implement, option)
+        insert_recent_func(self.cursor, self.connection, maintenance, implement, assigned, option)
         self.connection.commit()
 
     # Update state of implement
@@ -156,17 +164,18 @@ class DataBase:
         # Date
         if identifier == 1:
             sql = f"""
-                    SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                    SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed, main.estado  FROM recents r
                     INNER JOIN mantenimiento main on main.id = r.maintenance INNER JOIN empleados emp on emp.id = main.authorized
                     LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement
                     WHERE locate("{seeker}", main.programmed);"""
             self.cursor.execute(sql)
             self.container = self.cursor.fetchall()
+            print("Returned data...", self.container)
             return self.container
         # Implement
         elif identifier == 2:
             sql = f"""
-                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
+                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed, main.estado  FROM recents r
                 INNER JOIN mantenimiento main on main.id = r.maintenance INNER JOIN empleados emp on emp.id = main.authorized
                 LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement
                 WHERE locate("{seeker}", imp.nombre);"""
@@ -176,8 +185,16 @@ class DataBase:
         # Maintenance
         elif identifier == 3:
             sql = f"""
-                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed  FROM recents r
-                INNER JOIN mantenimiento main on main.id = r.maintenance AND main.id in {seeker} JOIN empleados emp on emp.id = main.authorized
+                SELECT r.id, emp.nombre, main.entity, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed, main.estado  FROM recents r
+                INNER JOIN mantenimiento main on main.id = r.maintenance AND main.id in ({seeker}) JOIN empleados emp on emp.id = main.authorized
+                LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement;"""
+            self.cursor.execute(sql)
+            self.container = self.cursor.fetchall()
+            return self.container
+        elif identifier == 4:
+            sql = f"""
+                SELECT r.id, emp.nombre, serv.nombre, main.assigned, r.maintenance, imp.nombre, r.date, main.programmed, main.estado FROM recents r
+                INNER JOIN mantenimiento main on main.id = r.maintenance JOIN empleados emp on emp.id = main.authorized
                 LEFT JOIN servicies serv on serv.id = main.entity INNER JOIN implementos imp on imp.id = r.implement;"""
             self.cursor.execute(sql)
             self.container = self.cursor.fetchall()
